@@ -17,6 +17,7 @@ export const products = [
         id: 3,
         name: "Pantalones",
         image: "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/596/994/products/carpenter1-1fab18769ad15a609716776104184092-640-0.webp",
+        price: 14620
     },
     {
         id: 4,
@@ -90,5 +91,5 @@ export const products = [
         image: "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/596/994/products/mdw-color_1761-ef61b9d3206f9620b516835658310237-1024-1024.webp",
         price: 20000
     },
-    
+
 ];
