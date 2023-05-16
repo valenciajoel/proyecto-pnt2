@@ -1,9 +1,15 @@
 <template>
     <div>
         <h1>Productos</h1>
+        <div class="filter-buttons">
+            <button @click="sortBy = 'price'; sortProducts()">Ordenar por precio</button>
+            <button @click="sortBy = 'name'; sortProducts()">Ordenar por nombre</button>
+            <button @click="sortBy = ''; sortProducts()">Sin orden</button>
+        </div>
         <div class="search-container">
-            <input v-model="searchQuery" type="text" placeholder="Buscar por nombre" @input="filterProducts" />
-            <button class="search-button" @click="filterProducts"><i class="fa fa-search"></i></button>
+            <input v-model="searchQuery" type="text" placeholder="Buscar producto por nombre" class="search-input"
+                @input="filterProducts" />
+            <button class="search-button" @click="filterProducts"><i class="fas fa-search"></i></button>
         </div>
         <div class="image-container">
             <div v-for="product in filteredProducts" :key="product.id" class="product-column">
@@ -47,24 +53,35 @@ export default {
     data() {
         return {
             displayedProducts: [],
-            searchQuery: '',
+            searchQuery: "",
+            sortBy: "",
         };
     },
     created() {
         this.displayedProducts = shuffle(products).slice(0, 9);
+        this.sortProducts(); // Agrega esta línea
     },
     methods: {
         filterProducts() {
             const query = this.searchQuery.toLowerCase();
-            this.filteredProducts = this.displayedProducts.filter(product =>
+            this.filteredProducts = this.displayedProducts.filter((product) =>
                 product.name.toLowerCase().includes(query)
             );
+        },
+        sortProducts() {
+            if (this.sortBy === "price") {
+                this.displayedProducts.sort((a, b) => a.price - b.price);
+            } else if (this.sortBy === "name") {
+                this.displayedProducts.sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+            }
         },
     },
     computed: {
         filteredProducts() {
             const query = this.searchQuery.toLowerCase();
-            return this.displayedProducts.filter(product =>
+            return this.displayedProducts.filter((product) =>
                 product.name.toLowerCase().includes(query)
             );
         },
@@ -150,14 +167,12 @@ export default {
     margin: 0 5px;
 }
 
-/* Nuevos estilos */
-
 .footer-content {
-    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer-column {
-    margin-bottom: 20px;
+    flex-basis: 30%;
 }
 </style>
-  
