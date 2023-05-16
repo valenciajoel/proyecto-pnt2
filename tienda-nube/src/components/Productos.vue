@@ -1,17 +1,17 @@
 <template>
     <div>
         <h1>Imágenes de productos de ropa</h1>
-        <div class="image-container">
-            <div v-for="product in products" :key="product.id">
-                <img :src="product.image" :alt="product.name" />
-                <p>{{ product.name }}</p>
-            </div>
-        </div>
+        <ProductGallery :products="products" />
     </div>
 </template>
   
 <script>
+import ProductGallery from './ProductGallery.vue'; // Componente separado para la galería de productos
+
 export default {
+    components: {
+        ProductGallery,
+    },
     data() {
         return {
             products: [
@@ -65,26 +65,10 @@ export default {
                     name: "Medias",
                     image: "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/596/994/products/dsc001771-6a38569713256dc3fd16662036019314-1024-1024.webp",
                 },
-                
+                // ... otros productos ...
             ],
         };
     },
 };
 </script>
   
-<style scoped>
-.image-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image-container div {
-    width: 150px;
-    margin: 10px;
-}
-
-.image-container img {
-    width: 100%;
-    height: auto;
-}
-</style>
