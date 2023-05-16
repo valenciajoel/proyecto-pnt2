@@ -12,6 +12,30 @@
                 <p>Precio: {{ product.price }}</p>
             </div>
         </div>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Datos de la empresa</h3>
+                    <p>Nombre de la empresa</p>
+                    <p>Dirección de la empresa</p>
+                    <p>Teléfono de contacto</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p>Email de contacto</p>
+                    <p>Teléfono de contacto</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Social</h3>
+                    <p>Síguenos en:</p>
+                    <div class="social-icons">
+                        <i class="fa fa-facebook"></i>
+                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </template>
   
@@ -91,6 +115,49 @@ export default {
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-column {
+    flex-basis: 30%;
+}
+
+.footer-column h3 {
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-icons i {
+    margin: 0 5px;
+}
+
+/* Nuevos estilos */
+
+.footer-content {
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    margin-bottom: 20px;
 }
 </style>
   
