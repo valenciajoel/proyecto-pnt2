@@ -193,16 +193,16 @@ function cerrarCartelRegistro() {
   mostrarCartelRegistro.value = false;
 }
 
-const validarContrasena = (contrasena) => {
+const validarContrasena = () => {
   const longitudMinima = 8;
   const longitudMaxima = 16;
-  const tieneMayuscula = /[A-Z]/.test(contrasena);
-  const tieneMinuscula = /[a-z]/.test(contrasena);
-  const tieneNumero = /\d/.test(contrasena);
+  const tieneMayuscula = /[A-Z]/.test(registro.password);
+  const tieneMinuscula = /[a-z]/.test(registro.password);
+  const tieneNumero = /\d/.test(registro.password);
 
   if (
-    contrasena.length < longitudMinima ||
-    contrasena.length > longitudMaxima ||
+    registro.password.length < longitudMinima ||
+    registro.password.length > longitudMaxima ||
     !tieneMayuscula ||
     !tieneMinuscula ||
     !tieneNumero
