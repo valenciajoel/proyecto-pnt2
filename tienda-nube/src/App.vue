@@ -79,8 +79,73 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
   </nav>
 
   <router-view></router-view>
+  <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Datos de la empresa</h3>
+                    <p>FASHION LAB</p>
+                    <p>Avenida del Sol 456</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p>fashionlab@gmail.com</p>
+                    <p>+54 9 1152879456</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Social</h3>
+                    <p>Síguenos en:</p>
+                    <div class="social-icons">
+                        <i class="fa fa-facebook"></i>
+                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
 </template>
 
 <style>
 /* Estilos adicionales */
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-column {
+    flex-basis: 30%;
+}
+
+.footer-column h3 {
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-icons i {
+    margin: 0 5px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex-basis: 30%;
+}
 </style>
