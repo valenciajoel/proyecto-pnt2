@@ -10,7 +10,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 <template>
     <div class="container">
         <div class="row">
-            <div id="carouselProducts" class="carousel slide">
+            <div id="carouselProducts" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselProducts" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1"></button>
@@ -21,7 +21,7 @@ import 'bootstrap/dist/js/bootstrap.js';
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="https://th.bing.com/th/id/OIP.gmU2B0cv8ztB53Q-4ebMvQHaLH?pid=ImgDet&rs=1"
+                        <img src="../img/DALL·E 2023-05-22 22.55.17 - a photo catalog of cloths with model men.png"
                             class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>First slide label</h5>
@@ -29,7 +29,7 @@ import 'bootstrap/dist/js/bootstrap.js';
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://cdna.lystit.com/photos/saksfifthavenue/0400088573611-camelia-7663d5ab-.jpeg"
+                        <img src="../img/DALL·E 2023-05-22 22.55.30 - a photo catalog of cloths with model men.png"
                             class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Second slide label</h5>
@@ -37,7 +37,7 @@ import 'bootstrap/dist/js/bootstrap.js';
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://th.bing.com/th/id/OIP.sBNBkLGHyeVD1fyADMFLkQHaFS?pid=ImgDet&rs=1"
+                        <img src="../img/DALL·E 2023-05-22 22.55.41 - a photo catalog of cloths with model men.png"
                             class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Third slide label</h5>
