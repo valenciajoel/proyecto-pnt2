@@ -1,22 +1,24 @@
 <template>
     <div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-        <h1>NEW ARRIVALS</h1>
+        <h1>NUEVOS ARRIBOS</h1>
         <div class="filter-buttons">
             <button @click="sortBy = 'price'; sortProducts()">Ordenar por precio</button>
             <button @click="sortBy = 'name'; sortProducts()">Ordenar por nombre</button>
-            <button @click="sortBy = ''; sortProducts()">Sin orden</button>
         </div>
         <div class="search-container">
-            <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar producto por nombre"
-                class="search-input" @input="filterProducts" />
+            <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input" @input="filterProducts" ref="searchInput" />
 
-            <button class="search-button" @click="toggleSearch"><i class="fas fa-search"></i></button>
+
+            <button class="search-button" @click="toggleSearch()">
+
+                <i v-show="!showSearch" class="fa fa-search"></i>
+                <i v-show="showSearch" class="fa fa-times"></i>
+            </button>
         </div>
         <div class="image-container">
-            <div v-for="product in filteredProducts" :key="product.id" class="product-column"
+            <div v-for="product in filterProducts" :key="product.id" class="product-column"
                 @click="showProductDetails(product)">
                 <img :src="product.image" :alt="product.name" class="product-image" />
                 <p>{{ product.name }}</p>
@@ -29,7 +31,6 @@
                     <h3>Datos de la empresa</h3>
                     <p>FASHION LAB</p>
                     <p>Avenida del Sol 456</p>
-
                 </div>
                 <div class="footer-column">
                     <h3>Contacto</h3>
@@ -38,7 +39,7 @@
                 </div>
                 <div class="footer-column">
                     <h3>Social</h3>
-                    <p>Seguinos en:</p>
+                    <p>Síguenos en:</p>
                     <div class="social-icons">
                         <i class="fa fa-facebook"></i>
                         <i class="fa fa-twitter"></i>
@@ -74,17 +75,16 @@ export default {
             searchQuery: "",
             sortBy: "",
             selectedProduct: null, // Agregado: Producto seleccionado para mostrar en detalle
-
             showSearch: false,
-
         };
     },
+
     created() {
         this.displayedProducts = shuffle(products).slice(0, 9);
         this.sortProducts();
     },
     methods: {
-        filterProducts() {
+        applyFilterProducts() {
             const query = this.searchQuery.toLowerCase();
             this.filteredProducts = this.displayedProducts.filter((product) =>
                 product.name.toLowerCase().includes(query)
@@ -101,16 +101,20 @@ export default {
         },
 
         toggleSearch() {
-            this.showSearch = !this.showSearch;
-            if (!this.showSearch) {
-                this.searchQuery = ""; // Reiniciar el valor de búsqueda al ocultar la caja de búsqueda
-                this.filterProducts(); // Aplicar el filtro nuevamente cuando se oculta la caja de búsqueda
-            }
-        },
+  this.showSearch = !this.showSearch;
+  if (this.showSearch) {
+    this.$nextTick(() => {
+      this.$refs.searchInput.focus();
+    });
+  } else {
+    this.searchQuery = '';
+    this.filterProducts();
+  }
+}
 
     },
     computed: {
-        filteredProducts() {
+        filterProducts() {
             const query = this.searchQuery.toLowerCase();
             return this.displayedProducts.filter((product) =>
                 product.name.toLowerCase().includes(query)
@@ -152,6 +156,12 @@ export default {
     padding: 0;
     border: none;
     transition: width 0.3s ease;
+}
+
+.search-input {
+    display: block;
+    width: 1000px;
+
 }
 
 .search-container input[type="text"]:focus {
