@@ -32,7 +32,7 @@
             </div>
         </div>
 
-
+<!--
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-column">
@@ -56,6 +56,7 @@
                 </div>
             </div>
         </footer>
+    -->
 
         <!-- Agregado: Modal de detalle de producto -->
         <div v-if="selectedProduct" class="product-modal">
@@ -207,7 +208,7 @@ export default {
     border: none;
     cursor: pointer;
 }
-
+/*
 .footer {
     background-color: #f0f0f0;
     padding: 20px;
@@ -248,5 +249,5 @@ export default {
 
 .footer-column {
     flex-basis: 30%;
-}
+}*/
 </style>
