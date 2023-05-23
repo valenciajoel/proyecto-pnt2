@@ -21,6 +21,7 @@
 
         <Cart />
 
+
         <div class="image-container">
             <div v-for="product in filterProducts" :key="product.id" class="product-column"
                 @click="showProductDetails(product)">
@@ -30,7 +31,7 @@
                 <button @click="addToCart(product)">Agregar al carrito</button>
             </div>
         </div>
-        
+
 
         <footer class="footer">
             <div class="footer-content">
@@ -73,8 +74,6 @@
 
 
     </div>
-
-
 </template>
   
 <script>
@@ -85,8 +84,8 @@ import { shuffle } from "lodash";
 
 export default {
     components: {
-    Cart,
-  },
+        Cart,
+    },
     data() {
         return {
             displayedProducts: [],
@@ -134,7 +133,16 @@ export default {
                 this.searchQuery = '';
                 this.filterProducts();
             }
-        }
+        },
+        addToCart(selectedProduct) {
+            this.cart.push(selectedProduct);
+        },
+        removeFromCart(selectedProduct) {
+            const index = this.cart.indexOf(selectedProduct);
+            if (index !== -1) {
+                this.cart.splice(index, 1);
+            }
+        },
     },
     computed: {
         filterProducts() {
