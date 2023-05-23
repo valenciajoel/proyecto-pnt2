@@ -2,13 +2,14 @@
     <div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <h1>NUEVOS ARRIBOS</h1>
+        <h1>NEW ARRIVALS</h1>
         <div class="filter-buttons">
             <button @click="sortBy = 'price'; sortProducts()">Ordenar por precio</button>
             <button @click="sortBy = 'name'; sortProducts()">Ordenar por nombre</button>
         </div>
         <div class="search-container">
-            <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input" @input="filterProducts" ref="searchInput" />
+            <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre"
+                class="search-input" @input="filterProducts" ref="searchInput" />
 
 
             <button class="search-button" @click="toggleSearch()">
@@ -17,14 +18,20 @@
                 <i v-show="showSearch" class="fa fa-times"></i>
             </button>
         </div>
+
+        <Cart />
+
         <div class="image-container">
             <div v-for="product in filterProducts" :key="product.id" class="product-column"
                 @click="showProductDetails(product)">
                 <img :src="product.image" :alt="product.name" class="product-image" />
                 <p>{{ product.name }}</p>
                 <p>Precio: {{ product.price }}</p>
+                <button @click="addToCart(product)">Agregar al carrito</button>
             </div>
         </div>
+        
+
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-column">
@@ -61,14 +68,25 @@
                 <button @click="closeProductDetails">Cerrar</button>
             </div>
         </div>
+
+
+
+
     </div>
+
+
 </template>
   
 <script>
 import { products } from "@/products.js";
+import Cart from './Cart.vue';
+
 import { shuffle } from "lodash";
 
 export default {
+    components: {
+    Cart,
+  },
     data() {
         return {
             displayedProducts: [],
@@ -76,6 +94,8 @@ export default {
             sortBy: "",
             selectedProduct: null, // Agregado: Producto seleccionado para mostrar en detalle
             showSearch: false,
+            cart: [] // Agregado: Array para almacenar los productos en el carrito
+
         };
     },
 
@@ -100,18 +120,21 @@ export default {
             }
         },
 
-        toggleSearch() {
-  this.showSearch = !this.showSearch;
-  if (this.showSearch) {
-    this.$nextTick(() => {
-      this.$refs.searchInput.focus();
-    });
-  } else {
-    this.searchQuery = '';
-    this.filterProducts();
-  }
-}
+        addToCart(selectedProduct) {
+            this.cart.push(selectedProduct);
+        },
 
+        toggleSearch() {
+            this.showSearch = !this.showSearch;
+            if (this.showSearch) {
+                this.$nextTick(() => {
+                    this.$refs.searchInput.focus();
+                });
+            } else {
+                this.searchQuery = '';
+                this.filterProducts();
+            }
+        }
     },
     computed: {
         filterProducts() {
