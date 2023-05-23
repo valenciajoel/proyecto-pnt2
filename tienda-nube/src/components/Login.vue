@@ -1,7 +1,5 @@
 <template>
   <div>
-    <button @click="mostrarCartelLogin">Login</button>
-    <cartel v-if="mostrarCartel" class="cartelLogin" @close="cerrarCartelLogin">
       <form @submit.prevent="iniciarSesion">
         <h2>Inicie sesion</h2>
         <label for="email" class="form-label mb-3">Correo electrónico:</label>
@@ -21,7 +19,7 @@
       <div v-if="mostrarMensajeError" class=" btn btn-danger">
         Correo electrónico o contraseña incorrectos.
       </div>
-    </cartel>
+
 
 
     <div class="col-md-3">
