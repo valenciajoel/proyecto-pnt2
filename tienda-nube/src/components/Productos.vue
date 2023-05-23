@@ -1,18 +1,23 @@
 <template>
     <div>
-        <h1>Productos</h1>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <h1>NEW ARRIVALS</h1>
         <div class="filter-buttons">
             <button @click="sortBy = 'price'; sortProducts()">Ordenar por precio</button>
             <button @click="sortBy = 'name'; sortProducts()">Ordenar por nombre</button>
             <button @click="sortBy = ''; sortProducts()">Sin orden</button>
         </div>
         <div class="search-container">
-            <input v-model="searchQuery" type="text" placeholder="Buscar producto por nombre" class="search-input"
-                @input="filterProducts" />
-            <button class="search-button" @click="filterProducts"><i class="fas fa-search"></i></button>
+            <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar producto por nombre"
+                class="search-input" @input="filterProducts" />
+
+            <button class="search-button" @click="toggleSearch"><i class="fas fa-search"></i></button>
         </div>
         <div class="image-container">
-            <div v-for="product in filteredProducts" :key="product.id" class="product-column">
+            <div v-for="product in filteredProducts" :key="product.id" class="product-column"
+                @click="showProductDetails(product)">
                 <img :src="product.image" :alt="product.name" class="product-image" />
                 <p>{{ product.name }}</p>
                 <p>Precio: {{ product.price }}</p>
@@ -22,18 +27,18 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Datos de la empresa</h3>
-                    <p>Nombre de la empresa</p>
-                    <p>Dirección de la empresa</p>
-                    <p>Teléfono de contacto</p>
+                    <p>FASHION LAB</p>
+                    <p>Avenida del Sol 456</p>
+
                 </div>
                 <div class="footer-column">
                     <h3>Contacto</h3>
-                    <p>Email de contacto</p>
-                    <p>Teléfono de contacto</p>
+                    <p>fashionlab@gmail.com</p>
+                    <p>+54 9 1152879456</p>
                 </div>
                 <div class="footer-column">
                     <h3>Social</h3>
-                    <p>Síguenos en:</p>
+                    <p>Seguinos en:</p>
                     <div class="social-icons">
                         <i class="fa fa-facebook"></i>
                         <i class="fa fa-twitter"></i>
@@ -42,6 +47,19 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Agregado: Modal de detalle de producto -->
+        <div v-if="selectedProduct" class="product-modal">
+            <div class="product-details">
+                <h2>{{ selectedProduct.name }}</h2>
+                <img :src="selectedProduct.image" :alt="selectedProduct.name" />
+                <p>Precio: {{ selectedProduct.price }}</p>
+                <p>Descripción: {{ selectedProduct.description }}</p>
+                <!-- Agregado: Botón para agregar al carrito -->
+                <button @click="addToCart(selectedProduct)">Agregar al carrito</button>
+                <button @click="closeProductDetails">Cerrar</button>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -55,11 +73,15 @@ export default {
             displayedProducts: [],
             searchQuery: "",
             sortBy: "",
+            selectedProduct: null, // Agregado: Producto seleccionado para mostrar en detalle
+
+            showSearch: false,
+
         };
     },
     created() {
         this.displayedProducts = shuffle(products).slice(0, 9);
-        this.sortProducts(); // Agrega esta línea
+        this.sortProducts();
     },
     methods: {
         filterProducts() {
@@ -77,6 +99,15 @@ export default {
                 );
             }
         },
+
+        toggleSearch() {
+            this.showSearch = !this.showSearch;
+            if (!this.showSearch) {
+                this.searchQuery = ""; // Reiniciar el valor de búsqueda al ocultar la caja de búsqueda
+                this.filterProducts(); // Aplicar el filtro nuevamente cuando se oculta la caja de búsqueda
+            }
+        },
+
     },
     computed: {
         filteredProducts() {
@@ -115,13 +146,15 @@ export default {
     height: auto;
 }
 
-.search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+.search-container input[type="text"] {
+    width: 0;
+    margin-right: 0;
+    padding: 0;
+    border: none;
+    transition: width 0.3s ease;
 }
 
-.search-container input[type="text"] {
+.search-container input[type="text"]:focus {
     width: 200px;
     margin-right: 10px;
     padding: 5px;
