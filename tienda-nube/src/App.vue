@@ -8,7 +8,7 @@ const home = () => {
 };
 
 const catalogo = () => {
-  router.push('/Producto');
+  router.push('/Productos');
 };
 
 const login = () => {

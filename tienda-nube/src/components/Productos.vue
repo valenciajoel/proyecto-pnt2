@@ -256,4 +256,5 @@ export default {
 .footer-column {
     flex-basis: 30%;
 }
+*/
 </style>
