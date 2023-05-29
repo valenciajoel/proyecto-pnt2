@@ -33,7 +33,7 @@
             </div>
         </div>
 
-
+<!--
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-column">
@@ -57,6 +57,7 @@
                 </div>
             </div>
         </footer>
+    -->
 
         <!-- Agregado: Modal de detalle de producto -->
         <div v-if="selectedProduct" class="product-modal">
@@ -213,7 +214,7 @@ export default {
     cursor: pointer;
     margin-left: 5px;
 }
-
+/*
 .footer {
     background-color: #f0f0f0;
     padding: 20px;
@@ -254,20 +255,5 @@ export default {
 
 .footer-column {
     flex-basis: 30%;
-}
-
-h1 {
-    text-align: center;
-}
-
-.search-container {
-    position: relative;
-}
-
-.search-icon {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 </style>
