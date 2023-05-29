@@ -133,14 +133,6 @@ export default {
             }
         },
 
-        addToCart(product) {
-            const cartStore = useCartStore();
-            cartStore.addToCart(product);
-        },
-        removeFromCart(item) {
-            const cartStore = useCartStore();
-            cartStore.removeFromCart(item);
-        },
     },
     computed: {
         filterProducts() {
