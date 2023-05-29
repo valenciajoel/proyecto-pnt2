@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
-
+import {useAuthStore} from '../store'
+const store = useAuthStore();
 export const useCartStore = defineStore('cart', {
+
   state: () => ({
     cart: []
   }),
@@ -9,7 +11,10 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     addToCart(product) {
-      this.cart.push(product);
+      if(store.hayUsuarioLogueado()){
+        this.cart.push(product);
+      }
+      
     },
     removeFromCart(item) {
       const index = this.cart.indexOf(item);

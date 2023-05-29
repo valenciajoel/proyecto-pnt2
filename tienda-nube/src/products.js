@@ -5,7 +5,8 @@ export const products = [
         id: 1,
         name: "Buzo neón",
         image: "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/596/994/products/mdw-editado_1661-7d7cc0055546d632fa16832270719927-640-0.webp",
-        price: 10500
+        price: 10500,
+        cantidad: 154
     },
     {
         id: 2,
