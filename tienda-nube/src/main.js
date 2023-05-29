@@ -9,6 +9,8 @@ import Login from './components/Login.vue'
 import Home from './components/Home.vue'
 import Contacto from './components/Contacto.vue'
 import App from './App.vue'
+import { createPinia } from 'pinia'
+
 
 const routes = [
     { path: '/', component:Home},
@@ -24,4 +26,5 @@ const router = createRouter({
 
 const app = createApp(App)
 .use(router)
+.use(createPinia())
 .mount('#app')
