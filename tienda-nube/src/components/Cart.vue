@@ -12,4 +12,25 @@
 </template>
 
 <script>
+import { useCartStore } from '@/store/carrito';
+
+export default {
+  computed: {
+    cart() {
+      const cartStore = useCartStore();
+      return cartStore.cart;
+    },
+    cartItemsCount() {
+      const cartStore = useCartStore();
+      return cartStore.cartItemsCount;
+    },
+  },
+  methods: {
+    removeFromCart(item) {
+      const cartStore = useCartStore();
+      cartStore.removeFromCart(item);
+    },
+  },
+};
+
 </script>

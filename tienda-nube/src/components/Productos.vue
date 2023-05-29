@@ -52,6 +52,8 @@
 import { products } from '@/products.js';
 import Cart from './Cart.vue';
 import { shuffle } from 'lodash';
+import { useCartStore } from '@/store/carrito.js';
+
 
 export default {
     components: {
