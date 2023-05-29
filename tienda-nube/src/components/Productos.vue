@@ -19,7 +19,8 @@
             </button>
         </div>
 
-        <Cart />
+        <Cart :cart="cart" @remove-from-cart="removeFromCart" />
+
 
 
         <div class="image-container">
@@ -66,7 +67,7 @@
                 <p>Precio: {{ selectedProduct.price }}</p>
                 <p>Descripción: {{ selectedProduct.description }}</p>
                 <!-- Agregado: Botón para agregar al carrito -->
-                <button @click="addToCart(selectedProduct)">Agregar al carrito</button>
+                <button @click="addToCart(product)">Agregar al carrito</button>
                 <button @click="closeProductDetails">Cerrar</button>
             </div>
         </div>
@@ -78,10 +79,10 @@
 </template>
   
 <script>
-import { products } from "@/products.js";
+import { useCartStore } from '@/store/cart.js';
+import { products } from '@/products.js';
 import Cart from './Cart.vue';
-
-import { shuffle } from "lodash";
+import { shuffle } from 'lodash';
 
 export default {
     components: {
@@ -120,9 +121,7 @@ export default {
             }
         },
 
-        addToCart(selectedProduct) {
-            this.cart.push(selectedProduct);
-        },
+
 
         toggleSearch() {
             this.showSearch = !this.showSearch;
@@ -135,14 +134,14 @@ export default {
                 this.filterProducts();
             }
         },
-        addToCart(selectedProduct) {
-            this.cart.push(selectedProduct);
+
+        addToCart(product) {
+            const cartStore = useCartStore();
+            cartStore.addToCart(product);
         },
-        removeFromCart(selectedProduct) {
-            const index = this.cart.indexOf(selectedProduct);
-            if (index !== -1) {
-                this.cart.splice(index, 1);
-            }
+        removeFromCart(item) {
+            const cartStore = useCartStore();
+            cartStore.removeFromCart(item);
         },
     },
     computed: {
@@ -182,6 +181,13 @@ export default {
     height: auto;
 }
 
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
 .search-container input[type="text"] {
     width: 0;
     margin-right: 0;
@@ -193,7 +199,6 @@ export default {
 .search-input {
     display: block;
     width: 1000px;
-
 }
 
 .search-container input[type="text"]:focus {
@@ -207,6 +212,7 @@ export default {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    margin-left: 5px;
 }
 /*
 .footer {
@@ -249,5 +255,5 @@ export default {
 
 .footer-column {
     flex-basis: 30%;
-}*/
+}
 </style>
