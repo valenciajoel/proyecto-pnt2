@@ -11,6 +11,14 @@ const catalogo = () => {
   router.push('/Productos');
 };
 
+const contacto = () => {
+  router.push('/Contacto')
+}
+
+const carrito = () => {
+  router.push('/Carrito')
+}
+
 const login = () => {
   router.push('/Login');
 };
@@ -52,6 +60,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="catalogo" href="#">Catalogo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="contacto" href="#">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="carrito" href="#">Carrito de compras</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"

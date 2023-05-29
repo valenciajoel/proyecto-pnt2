@@ -10,6 +10,7 @@ import Home from './components/Home.vue'
 import Contacto from './components/Contacto.vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
+import Carrito from './components/Cart.vue'
 
 
 const routes = [
@@ -17,6 +18,7 @@ const routes = [
     { path: '/Login', component:Login},
     { path: '/Contacto', component:Contacto},
     { path: '/Productos', component:Productos},
+    {path: '/Carrito', component:Carrito},
 ]
 
 const router = createRouter({

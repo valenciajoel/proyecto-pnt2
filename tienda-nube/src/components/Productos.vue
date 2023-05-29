@@ -19,10 +19,6 @@
             </button>
         </div>
 
-        <Cart :cart="cart" @remove-from-cart="removeFromCart" />
-
-
-
         <div class="image-container">
             <div v-for="product in filterProducts" :key="product.id" class="product-column"
                 @click="showProductDetails(product)">
@@ -32,32 +28,6 @@
                 <button @click="addToCart(product)">Agregar al carrito</button>
             </div>
         </div>
-
-<!--
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Datos de la empresa</h3>
-                    <p>FASHION LAB</p>
-                    <p>Avenida del Sol 456</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Contacto</h3>
-                    <p>fashionlab@gmail.com</p>
-                    <p>+54 9 1152879456</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Social</h3>
-                    <p>Síguenos en:</p>
-                    <div class="social-icons">
-                        <i class="fa fa-facebook"></i>
-                        <i class="fa fa-twitter"></i>
-                        <i class="fa fa-instagram"></i>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    -->
 
         <!-- Agregado: Modal de detalle de producto -->
         <div v-if="selectedProduct" class="product-modal">
