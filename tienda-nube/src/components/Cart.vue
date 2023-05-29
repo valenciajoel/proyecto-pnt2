@@ -1,44 +1,35 @@
 <template>
   <div>
-    <button @click="mostratCartelCarrito">Carrito ({{ itemCount }})</button>
-    <cartel v-if="mostrarCarrito" @close="cerrarCartelCarrito">
-      <h2>Carrito de compras</h2>
-      <ul>
-        <li v-for="(item, index) in carritoItems" :key="index">
-          {{ item.name }} - {{ item.price }} - {{ item.talle }}$
-        </li>
-      </ul>
-    </cartel>
+    <h2>Carrito de compras</h2>
+    <ul>
+      <li v-for="item in cart" :key="item.id">
+        {{ item.name }} - {{ item.price }}
+        <button @click="removeFromCart(item)">Eliminar</button>
+      </li>
+    </ul>
+    <p>Total de artículos: {{ cartItemsCount }}</p>
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
-import Cartel from './Cartel.vue';
+<script>
+import { useCartStore } from '@/store/cart';
 
-const mostrarCarrito = ref(false);
-const carritoItems = ref([]);
-
-const itemCount = computed(() => carritoItems.value.length);
-
-const removeFromCart = (selectedProduct) => {
-  // Emit the event to remove from cart
-  emit('remove-from-cart', selectedProduct);
-};
-
-const mostratCartelCarrito = () => {
-  mostrarCarrito.value = true;
-};
-
-const cerrarCartelCarrito = () => {
-  mostrarCarrito.value = false;
+export default {
+  computed: {
+    cart() {
+      const cartStore = useCartStore();
+      return cartStore.cart;
+    },
+    cartItemsCount() {
+      const cartStore = useCartStore();
+      return cartStore.cartItemsCount;
+    },
+  },
+  methods: {
+    removeFromCart(item) {
+      const cartStore = useCartStore();
+      cartStore.removeFromCart(item);
+    },
+  },
 };
 </script>
-
-<style scoped>
-.cart {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-top: 20px;
-}
-</style>
