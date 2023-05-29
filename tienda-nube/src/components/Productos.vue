@@ -78,7 +78,6 @@
 </template>
   
 <script>
-import { useCartStore } from '@/store/cart.js';
 import { products } from '@/products.js';
 import Cart from './Cart.vue';
 import { shuffle } from 'lodash';

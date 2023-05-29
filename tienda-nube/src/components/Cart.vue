@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { useCartStore } from '@/store/cart';
 
 export default {
   computed: {
