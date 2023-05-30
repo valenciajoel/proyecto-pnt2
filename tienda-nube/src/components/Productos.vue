@@ -106,6 +106,17 @@ export default {
             }
         },
 
+        addToCart(product) {
+            const cartStore = useCartStore();
+            cartStore.addToCart(product);
+        },
+        removeFromCart(item) {
+            const cartStore = useCartStore();
+            cartStore.removeFromCart(item);
+        },
+
+
+
     },
     computed: {
         filterProducts() {
@@ -177,6 +188,7 @@ export default {
     cursor: pointer;
     margin-left: 5px;
 }
+
 /*
 .footer {
     background-color: #f0f0f0;
