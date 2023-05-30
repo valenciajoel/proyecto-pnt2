@@ -10,8 +10,6 @@
         <div class="search-container">
             <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre"
                 class="search-input" @input="filterProducts" ref="searchInput" />
-
-
             <button class="search-button" @click="toggleSearch()">
 
                 <i v-show="!showSearch" class="fa fa-search"></i>
@@ -20,12 +18,16 @@
         </div>
 
         <div class="image-container">
-            <div v-for="product in filterProducts" :key="product.id" class="product-column"
-                @click="showProductDetails(product)">
+            <div v-for="product in filterProducts" :key="product.id" class="product-column">
                 <img :src="product.image" :alt="product.name" class="product-image" />
                 <p>{{ product.name }}</p>
                 <p>Precio: {{ product.price }}</p>
-                <button @click="addToCart(product)">Agregar al carrito</button>
+                <div class="quantity-selection">
+                    <button @click="product.cantidad = Math.max(1, product.cantidad - 1)">-</button>
+                    <span>{{ product.cantidad }}</span>
+                    <button @click="product.cantidad = Math.min(product.stock, product.cantidad + 1)">+</button>
+                </div>
+                <button @click="addToCart(product, product.cantidad)">Agregar al carrito</button>
             </div>
         </div>
 
@@ -53,6 +55,8 @@ import { useCartStore } from '@/store/carrito.js';
 import { products } from '@/products.js';
 import Cart from './Cart.vue';
 import { shuffle } from 'lodash';
+import { useCartStore } from '@/store/carrito.js';
+
 
 export default {
     components: {
@@ -113,6 +117,9 @@ export default {
             const cartStore = useCartStore();
             cartStore.removeFromCart(item);
         },
+
+
+
     },
     computed: {
         filterProducts() {
@@ -184,6 +191,7 @@ export default {
     cursor: pointer;
     margin-left: 5px;
 }
+
 /*
 .footer {
     background-color: #f0f0f0;
