@@ -10,8 +10,6 @@
         <div class="search-container">
             <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre"
                 class="search-input" @input="filterProducts" ref="searchInput" />
-
-
             <button class="search-button" @click="toggleSearch()">
 
                 <i v-show="!showSearch" class="fa fa-search"></i>
@@ -20,12 +18,16 @@
         </div>
 
         <div class="image-container">
-            <div v-for="product in filterProducts" :key="product.id" class="product-column"
-                @click="showProductDetails(product)">
+            <div v-for="product in filterProducts" :key="product.id" class="product-column">
                 <img :src="product.image" :alt="product.name" class="product-image" />
                 <p>{{ product.name }}</p>
                 <p>Precio: {{ product.price }}</p>
-                <button @click="addToCart(product)">Agregar al carrito</button>
+                <div class="quantity-selection">
+                    <button @click="product.cantidad = Math.max(1, product.cantidad - 1)">-</button>
+                    <span>{{ product.cantidad }}</span>
+                    <button @click="product.cantidad = Math.min(product.stock, product.cantidad + 1)">+</button>
+                </div>
+                <button @click="addToCart(product, product.cantidad)">Agregar al carrito</button>
             </div>
         </div>
 

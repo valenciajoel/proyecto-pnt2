@@ -1,0 +1,265 @@
+[33mcommit 9fc639a0f6f0757fbd045e0424fb993fc73261a9[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 21:07:19 2023 -0300
+
+    Ultima corrección de errores
+
+[33mcommit 0ccdcd7817ef68350a2739abf942b347021e2b3b[m
+Merge: bb83d50 690c8eb
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 20:58:45 2023 -0300
+
+    Productos con cantidad
+
+[33mcommit 690c8eb192648fe67b1c488486462218fb2e3a4e[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 29 20:10:12 2023 -0300
+
+    correcion
+
+[33mcommit bb83d50c7a4c32a56e43c16dc277651c0e9f7748[m
+Merge: fd30719 a4d0a21
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 20:07:53 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit fd307190f077a2d1754e13244e9ca1641dd66e29[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 20:07:48 2023 -0300
+
+    Mas correccion de errores
+
+[33mcommit a4d0a214aa322fd46068480d6244d71ba5bd93dd[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 29 20:03:29 2023 -0300
+
+    Ruteo de Contacto y Carrito
+
+[33mcommit 5d76d480ada2863220615e40f7dda7f82376d82b[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 19:57:53 2023 -0300
+
+    correccion de errores
+
+[33mcommit 83245601e4ee1917ac6301cf39abb1d0b817093a[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 29 19:44:01 2023 -0300
+
+    Correccion de errores
+
+[33mcommit 108afca79fe816214c8a616f5420776220bd2a44[m
+Merge: 834a1ed 07966b9
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 29 19:28:16 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit 07966b9093bfc2f9a414159dce8b9a2470187390[m
+Merge: a4b6a17 33a864e
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 19:23:09 2023 -0300
+
+    Cart en store
+
+[33mcommit a4b6a1776f01e40d99411caef5227aecdc235abe[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 29 19:19:43 2023 -0300
+
+    Carrito con store cart.js y pinia
+
+[33mcommit 834a1edb2f5efe119053acd5dc276ffa70eba8f2[m
+Merge: fbbb384 33a864e
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 29 18:42:24 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit 33a864e4625f5e5fa9b7e6b6dae7fac5a98f552f[m
+Author: Noelia Narduzzi <noelianarduzzi@gmail.com>
+Date:   Mon May 29 16:38:05 2023 -0300
+
+    Modificando Login
+
+[33mcommit fbbb3844055f00e092500658203ccc76c030357d[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 23:04:45 2023 -0300
+
+    Home actualizado
+
+[33mcommit f9b9775b7935826866198439cbe3bc003918faca[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 23:03:50 2023 -0300
+
+    Se añadio la carpeta de imagenes
+
+[33mcommit 1fd9406cb7632311e3bb1beb0f3ad32c3cdc92a4[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 22:48:49 2023 -0300
+
+    Implementacion del footer
+
+[33mcommit 8ca073b9e1b30de81644ebf8a09b1b0d50d4b05a[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 22:48:11 2023 -0300
+
+    Se comento el footer para que se use en la app en general
+
+[33mcommit 7a9443761f081467bf1f360befe0de6b760b7a57[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 22:42:52 2023 -0300
+
+    Implementacion de offcanvas para el menu en slide y correccion de errores
+
+[33mcommit fe07e388a2ca8a02d14fa6e2737ec446792b7b2e[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 22:40:16 2023 -0300
+
+    Agregar al carrito y boton carrito
+
+[33mcommit 006e541cb7aa94f239832bb66d0a940c818392d9[m
+Merge: f259a22 2bce839
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 22:31:09 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit f259a22a2cc539d1e3622e653c63d33ea53d1a6b[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 22:30:35 2023 -0300
+
+    Botón carrito y clase Cart
+
+[33mcommit 2bce839252806927646c54d9e2c86bf72f6d54fc[m
+Merge: aba7d6c aed6c49
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 21:58:37 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit aba7d6c5d02b54ecfc42fc2beeeb60d6e375f287[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 21:58:33 2023 -0300
+
+    Añadi Logo
+
+[33mcommit aed6c49ef63677795af996cf0d20b2f38530b637[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 21:57:09 2023 -0300
+
+    Caja de busqueda con lupa
+
+[33mcommit f2224a7f7624c159eb3acbdc706c06913c165c06[m
+Merge: f9319f5 62ab7f8
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 21:13:22 2023 -0300
+
+    Merge branch 'master' of https://github.com/valenciajoel/proyecto-pnt2
+
+[33mcommit f9319f55a188e14450e59daff226c999e0ae68e9[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 22 21:13:17 2023 -0300
+
+    lupa de busqueda
+
+[33mcommit 62ab7f85bfc35ead4f922fc5a8b45ce71aea72a3[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 21:01:42 2023 -0300
+
+    Implementacion de modal en nav-bar para uso de Login
+
+[33mcommit 7286b65640bcfb08e0462f07f8a7826c489c9b56[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 21:01:03 2023 -0300
+
+    Modificacion deLogin para utilizar en modal de nav-bar
+
+[33mcommit 26373e41bfbbace52a202f8facf11b0819419217[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 20:42:27 2023 -0300
+
+    Implementacion de carousel de Bootstrap en Home
+
+[33mcommit 2d2f2aebb7a09af2f67b8905dac69563f221f354[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 22 20:41:47 2023 -0300
+
+    agrego package.json actualizado
+
+[33mcommit ccb45d42bac511bc11521695e8c770294cc0b23b[m
+Author: Noelia Narduzzi <noelianarduzzi@gmail.com>
+Date:   Sun May 21 20:26:32 2023 -0300
+
+    Iniciando con Contacto
+
+[33mcommit fe0c6cf76700f3dddc7ee1564733d991e3324fe1[m
+Author: Noelia Narduzzi <noelianarduzzi@gmail.com>
+Date:   Sun May 21 20:11:25 2023 -0300
+
+    Terminando estilos en Login/Registro
+
+[33mcommit a4ea2636de78e0fb3e6ea4be4de48c5f013ab10c[m
+Author: Noelia Narduzzi <noelianarduzzi@gmail.com>
+Date:   Sun May 21 15:42:38 2023 -0300
+
+    Registro e incio listos
+
+[33mcommit 71151d9dc1bb8f4a7456de82230ec987848d66de[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Tue May 16 18:28:59 2023 -0300
+
+    Botones para filtrar
+
+[33mcommit 50ada269bad6e7585a92af04b226d0470a57aa52[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 15 22:55:17 2023 -0300
+
+    Footer sin nombres de empresa
+
+[33mcommit ae726e6f2a2d1ff908ce29497b9f5e09d2a87777[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 15 22:50:05 2023 -0300
+
+    Lupa y busqueda por nombre
+
+[33mcommit 903535130ed36e625cbbc5d1d3eb2b696c3e106b[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 15 22:41:52 2023 -0300
+
+    Botones para filtrar productos
+
+[33mcommit 918dcda41460170e8b225cdf092132ae82f6e60b[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 15 22:31:15 2023 -0300
+
+    productos separados y aleatorio en Productos
+
+[33mcommit 69f154545220dcce932e07887d0cdabb1ea11040[m
+Author: [valen] <[vaalen.tagliaferro@hotmail.com]>
+Date:   Mon May 15 21:43:19 2023 -0300
+
+    División de Productos en componentes
+
+[33mcommit 2c0fdb00d56d8a23e8522c2e3789331de329bd81[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 15 21:03:29 2023 -0300
+
+    Routeo de las distintas pestañas en App.vue
+
+[33mcommit d95fade399f2e3d9ed73ad256e8b1a512a7036d4[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 15 20:16:41 2023 -0300
+
+    se implemento el .gitignore
+
+[33mcommit 07170a1fd2ae9eb2b7a21f6ac3c16a16d3f56bc6[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 15 20:15:08 2023 -0300
+
+    se agrego bootstrap al proyecto
+
+[33mcommit 3494cbb1509c2144dca97e8af68a0dbc119df0a2[m
+Author: Joel <valenciajoel0@gmail.com>
+Date:   Mon May 15 20:10:00 2023 -0300
+
+    generacion de rutas de componentes den
