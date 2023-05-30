@@ -11,10 +11,7 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     addToCart(product) {
-      if(store.hayUsuarioLogueado()){
         this.cart.push(product);
-      }
-      
     },
     removeFromCart(item) {
       const index = this.cart.indexOf(item);
