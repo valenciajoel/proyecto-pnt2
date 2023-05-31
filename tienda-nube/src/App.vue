@@ -35,7 +35,9 @@ const openLogin = () => {
 const closeLogin = () => {
   showLoginContent.value = false;
 };
+
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 </script>
 
 <template>
@@ -93,6 +95,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
   </nav>
 
   <router-view></router-view>
+
   <footer class="footer">
             <div class="footer-content">
                 <div class="footer-column">
