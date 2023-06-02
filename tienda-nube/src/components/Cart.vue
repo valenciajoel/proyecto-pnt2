@@ -48,6 +48,14 @@ export default {
       }
       return "$" + total;
     },
+    checkout() {
+    // Realizar acciones necesarias para finalizar la compra, como procesar el pago, enviar una solicitud al servidor, etc.
+    // ...
+
+    // Vaciar el carrito después de la finalización de la compra
+    const cartStore = useCartStore();
+    cartStore.clearCart();
+  }
   },
 };
 </script>
