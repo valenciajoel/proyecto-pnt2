@@ -3,7 +3,7 @@
     <h2>Carrito de compras</h2>
     <ul>
       <li v-for="item in cart" :key="item.id">
-        {{ item.name }} -  ${{ item.price }} - Cantidad: {{ item.cantidad }} -
+        {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
         Total : ${{ item.cantidad * item.price }}
         <br />
         <button @click="removeFromCart(item)">Eliminar</button>
@@ -15,20 +15,34 @@
 
   <button @click="checkout">Finalizar compra</button>
 
+  <div v-if="this.cartStore.showSummary">
+    <h1>Compra realizada con exito!</h1>
+    <h2>Resumen de compra</h2>
+    <ul>
+      <li v-for="item in cart" :key="item.id">
+        {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
+        Total: ${{ item.cantidad * item.price }}
+      </li>
+    </ul>
+    <p>Total compra: {{ getTotalBudget() }}</p>
+  </div>
 </template>
 
 <script>
 import { useCartStore } from "@/store/carrito";
 
 export default {
+  data() {
+    return {
+      cartStore: useCartStore(),
+    };
+  },
   computed: {
     cart() {
-      const cartStore = useCartStore();
-      return cartStore.cart;
+      return this.cartStore.cart;
     },
     cartItemsCount() {
-      const cartStore = useCartStore();
-      return cartStore.cartItemsCount;
+      return this.cartStore.cartItemsCount;
     },
   },
   methods: {
@@ -49,13 +63,9 @@ export default {
       return "$" + total;
     },
     checkout() {
-    // Realizar acciones necesarias para finalizar la compra, como procesar el pago, enviar una solicitud al servidor, etc.
-    // ...
-
-    // Vaciar el carrito después de la finalización de la compra
-    const cartStore = useCartStore();
-    cartStore.clearCart();
-  }
+      this.cartStore.showSummary = true;
+      this.cartStore.clearCart();
+    },
   },
 };
 </script>
