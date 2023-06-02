@@ -1,9 +1,6 @@
 <template>
   <div>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    
 
     <h1>NEW ARRIVALS</h1>
     <div class="filter-buttons">
@@ -210,47 +207,4 @@ export default {
   margin-left: 5px;
 }
 
-/*
-.footer {
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-around;
-}
-
-.footer-column {
-    flex-basis: 30%;
-}
-
-.footer-column h3 {
-    margin-bottom: 10px;
-}
-
-.footer-column p {
-    margin-bottom: 5px;
-}
-
-.social-icons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.social-icons i {
-    margin: 0 5px;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-}
-
-.footer-column {
-    flex-basis: 30%;
-}
-*/
 </style>

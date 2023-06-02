@@ -12,6 +12,9 @@
     <p>Total de artículos: {{ cartItemsCount }}</p>
     <p>Presupuesto total: {{ getTotalBudget() }}</p>
   </div>
+
+  <button @click="checkout">Finalizar compra</button>
+
 </template>
 
 <script>
