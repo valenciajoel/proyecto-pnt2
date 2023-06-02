@@ -1,30 +1,32 @@
 <template>
   <div>
-    <h2>Carrito de compras</h2>
-    <ul>
-      <li v-for="item in cart" :key="item.id">
-        {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
-        Total : ${{ item.cantidad * item.price }}
-        <br />
-        <button @click="removeFromCart(item)">Eliminar</button>
-      </li>
-    </ul>
-    <p>Total de artículos: {{ cartItemsCount }}</p>
-    <p>Presupuesto total: {{ getTotalBudget() }}</p>
-  </div>
+    <div v-if="!cartStore.showSummary">
+      <h2>Carrito de compras</h2>
+      <ul>
+        <li v-for="item in cart" :key="item.id">
+          {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
+          Total : ${{ item.cantidad * item.price }}
+          <br />
+          <button @click="removeFromCart(item)">Eliminar</button>
+        </li>
+      </ul>
+      <p>Total de artículos: {{ cartItemsCount }}</p>
+      <p>Presupuesto total: {{ getTotalBudget() }}</p>
 
-  <button @click="checkout">Finalizar compra</button>
+      <button @click="checkout">Finalizar compra</button>
+    </div>
+    <div v-if="this.cartStore.showSummary">
+      <h1>Compra realizada con exito!</h1>
+      <h2>Resumen de compra</h2>
 
-  <div v-if="this.cartStore.showSummary">
-    <h1>Compra realizada con exito!</h1>
-    <h2>Resumen de compra</h2>
-    <ul>
-      <li v-for="item in cart" :key="item.id">
-        {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
-        Total: ${{ item.cantidad * item.price }}
-      </li>
-    </ul>
-    <p>Total compra: {{ getTotalBudget() }}</p>
+      <p>Total compra: {{ getTotalBudget() }}</p>
+      <ul>
+        <li v-for="item in cart" :key="item.id">
+          {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
+          Total: ${{ item.cantidad * item.price }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -64,7 +66,7 @@ export default {
     },
     checkout() {
       this.cartStore.showSummary = true;
-      this.cartStore.clearCart();
+      /* this.cartStore.clearCart(); */
     },
   },
 };
