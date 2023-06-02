@@ -51,13 +51,13 @@
         <p>Precio: {{ product.price }}</p>
         <div class="quantity-selection">
           <button
-            @click="product.cantidad = Math.max(1, (product.cantidad || 1) - 1)"
+            @click="product.cantidad = Math.max(1, (product.cantidad || 0) - 1)"
           >
             -
           </button>
-          <span>{{ product.cantidad || 1 }}</span>
+          <span>{{ product.cantidad || 0 }}</span>
           <button
-            @click="product.cantidad = Math.min(8, (product.cantidad || 1) + 1)"
+            @click="product.cantidad = Math.min(8, (product.cantidad || 0) + 1)"
           >
             +
           </button>
