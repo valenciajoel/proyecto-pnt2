@@ -26,6 +26,8 @@
           Total: ${{ item.cantidad * item.price }}
         </li>
       </ul>
+            <button @click="finish">FINALIZAR</button>
+
     </div>
   </div>
 </template>
@@ -66,8 +68,12 @@ export default {
     },
     checkout() {
       this.cartStore.showSummary = true;
-      /* this.cartStore.clearCart(); */
+      
     },
+    finish(){
+       this.cartStore.clearCart();
+       this.cartStore.showSummary = false;
+    }
   },
 };
 </script>
