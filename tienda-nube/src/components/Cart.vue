@@ -3,7 +3,8 @@
     <h2>Carrito de compras</h2>
     <ul>
       <li v-for="item in cart" :key="item.id">
-        {{ item.name }} - {{ item.price }}
+        {{ item.name }} - {{ item.price }} -  Cantidad: {{ item.cantidad }}
+        <br>
         <button @click="removeFromCart(item)">Eliminar</button>
       </li>
     </ul>
