@@ -16,10 +16,13 @@
 
     </form>
     <button @click="registrarse" class=" btn btn-primary form-control mb-3">Registarse</button>
+
     <div v-if="store.hayUsuarioLogueado" class="mb-3">
       Usuario Logueado
     </div>
-
+    <div v-if="store.esAdministrador" class="mb-3">
+      Administrador Logueado
+    </div>
 
     <div class="col-md-3">
       <cartel v-if="mostrarCartelRegistro" class="cartelRegistro" @submit="registrarUsuario">
@@ -99,7 +102,6 @@ const mostrarCartelRegistro = ref(false);
 
 const mostrarMensajeRegistroExitoso = ref();
 
-const usuarios = ref([]);
 const store = useAuthStore();
 
 const registro = ref({
@@ -108,7 +110,8 @@ const registro = ref({
   email: '',
   password: '',
   dni: '',
-  telefono: ''
+  telefono: '',
+  rol: ''
 });
 
 function registrarse() {
@@ -126,35 +129,18 @@ const datosInicio = ref({
 })
 
 function iniciarSesion() {
-  console.log(datosInicio.value.email);
-  console.log(datosInicio.value.password);
-
-  //Busca al usuario con el mail y la contraseña
-  const usuarioEncontrado = usuarios.value.find(
-    (usuario) => usuario.email === datosInicio.value.email && usuario.password === datosInicio.value.password
-  );
-
-  console.log(usuarioEncontrado.email);
-  console.log(usuarioEncontrado.password);
-
-  //Muestra los mensajes de inicio de sesion o error
-  if (usuarioEncontrado) {
-    store.iniciarSesion(usuarioEncontrado);
-  } 
-
+  store.iniciarSesion(datosInicio);
 }
 
 onMounted(async () => {
-    const respuesta = await axios.get(
-      "https://www.mockachino.com/070cc9f6-8471-42/api-usuarios"
-    );
-
-    usuarios.value = respuesta.data.usuarios; //esto lo obtengo mirando lo que devuelve el servicio.
-    console.log(respuesta.data.usuarios);
-  });
+  const respuesta = await axios.get(
+    "https://www.mockachino.com/bdda739c-cb46-4b/api-usuariosstore"
+  );
+  const usuariosObtenidos = respuesta.data.usuarios;
+  store.setUsuarios(usuariosObtenidos);
+});
 
 // Usar mocachino reemplazando todo el regisro con un array de usarios que venga del moka
-
 
 const registrarUsuario = () => {
 
@@ -174,5 +160,6 @@ const registrarUsuario = () => {
 };
 
 </script>
+
 
 
