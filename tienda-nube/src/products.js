@@ -1,6 +1,6 @@
 // products.js
 
-export const products = [
+const products = [
     {
         id: 1,
         name: "Buzo neón",
@@ -97,3 +97,4 @@ export const products = [
         stock: 74859    },
 
 ];
+exports.module = products;
