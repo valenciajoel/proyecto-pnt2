@@ -26,7 +26,7 @@
           Total: ${{ item.cantidad * item.price }}
         </li>
       </ul>
-            <button @click="finish">FINALIZAR</button>
+            <button @click="finish">REINICIAR</button>
 
     </div>
   </div>
