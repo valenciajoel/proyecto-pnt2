@@ -1,35 +1,25 @@
-<script>
-export default {
-    data() {
-        return {
-            cardsPerSlide: 3 // Número de tarjetas que se mostrarán por slide
-        };
-    },
-    computed: {
-        chunkedProducts() {
-            // Dividir los productos en grupos según el número de tarjetas por slide
-            const chunkSize = this.cardsPerSlide;
-            const productsCopy = [...this.products]; // Hacer una copia de los productos para no modificar el array original
-            const chunkedArray = [];
-
-            while (productsCopy.length > 0) {
-                chunkedArray.push(productsCopy.splice(0, chunkSize));
-            }
-
-            return chunkedArray;
-        }
-    }
-};
-</script>
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { products } from "@/products.js";
 
+const cardsPerSlide = 3; // Número de tarjetas que se mostrarán por slide
+
+const chunkedProducts = (() => {
+    // Dividir los productos en grupos según el número de tarjetas por slide
+    const chunkSize = cardsPerSlide;
+    const productsCopy = [...products]; // Hacer una copia de los productos para no modificar el array original
+    const chunkedArray = [];
+
+    while (productsCopy.length > 0) {
+        chunkedArray.push(productsCopy.splice(0, chunkSize));
+    }
+
+    return chunkedArray;
+})();
 
 </script>
-<script>
-</script>
+
 
 <template>
     <div class="container">
