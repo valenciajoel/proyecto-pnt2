@@ -1,7 +1,9 @@
 
 import { defineStore } from 'pinia';
-
+//import {useAuthStore} from '../store'
+//const store = useAuthStore();
 export const useCartStore = defineStore('cart', {
+
   state: () => ({
     cart: [],
     showSummary: false,
@@ -11,7 +13,7 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     addToCart(product) {
-      this.cart.push(product);
+        this.cart.push(product);
     },
 
     removeFromCart(item) {

@@ -1,35 +1,25 @@
-<script>
-export default {
-    data() {
-        return {
-            cardsPerSlide: 3 // Número de tarjetas que se mostrarán por slide
-        };
-    },
-    computed: {
-        chunkedProducts() {
-            // Dividir los productos en grupos según el número de tarjetas por slide
-            const chunkSize = this.cardsPerSlide;
-            const productsCopy = [...this.products]; // Hacer una copia de los productos para no modificar el array original
-            const chunkedArray = [];
-
-            while (productsCopy.length > 0) {
-                chunkedArray.push(productsCopy.splice(0, chunkSize));
-            }
-
-            return chunkedArray;
-        }
-    }
-};
-</script>
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { products } from "@/products.js";
 
+const cardsPerSlide = 3; // Número de tarjetas que se mostrarán por slide
+
+const chunkedProducts = (() => {
+    // Dividir los productos en grupos según el número de tarjetas por slide
+    const chunkSize = cardsPerSlide;
+    const productsCopy = [...products]; // Hacer una copia de los productos para no modificar el array original
+    const chunkedArray = [];
+
+    while (productsCopy.length > 0) {
+        chunkedArray.push(productsCopy.splice(0, chunkSize));
+    }
+
+    return chunkedArray;
+})();
 
 </script>
-<script>
-</script>
+
 
 <template>
     <div class="container">
@@ -42,6 +32,10 @@ import { products } from "@/products.js";
                         aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselProducts" data-bs-slide-to="2"
                         aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselProducts" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselProducts" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -67,6 +61,22 @@ import { products } from "@/products.js";
                             <h5>Third slide label</h5>
                             <p>Some representative placeholder content for the third slide.</p>
                         </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/Promocion 30off.png" 
+                    class="d-block w-100" style="width: 300px; height: 600px;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Promociones con Bancos</h5>
+                        <p>Descubre nuestras increíbles ofertas al pagar con tarjetas de nuestros bancos asociados.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/Promociones Banco1.png" 
+                    class="d-block w-100" style="width: 300px; height: 600px;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Descuentos del 30%</h5>
+                        <p>Aprovecha un descuento del 30% en productos seleccionados por tiempo limitado.</p>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducts" data-bs-slide="prev">
