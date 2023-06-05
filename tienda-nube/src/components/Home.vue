@@ -67,16 +67,12 @@ const chunkedProducts = (() => {
                     <img src="../img/Promocion 30off.png" 
                     class="d-block w-100" style="width: 300px; height: 600px;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Promociones con Bancos</h5>
-                        <p>Descubre nuestras increíbles ofertas al pagar con tarjetas de nuestros bancos asociados.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="../img/Promociones Banco1.png" 
                     class="d-block w-100" style="width: 300px; height: 600px;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Descuentos del 30%</h5>
-                        <p>Aprovecha un descuento del 30% en productos seleccionados por tiempo limitado.</p>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducts" data-bs-slide="prev">

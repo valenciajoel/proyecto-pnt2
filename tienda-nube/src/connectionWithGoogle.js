@@ -1,9 +1,9 @@
 
-const GoogleSheets = {
+export const GoogleSheets = {
 
-    urlGoogle: "https://script.google.com/macros/s/AKfycbyBHkBdDujBG3Pq2tVnvjeEC5mnaOYQ98_xJPWIPUwAchReqDcJWGsqyDRLx1cvZStB8w/exec",
-    sendData: async (data) => {
-        const response = await fetch(GoogleSheets.urlGoogle, {
+    urlGoogle : "https://script.google.com/macros/s/AKfycbyBHkBdDujBG3Pq2tVnvjeEC5mnaOYQ98_xJPWIPUwAchReqDcJWGsqyDRLx1cvZStB8w/exec",
+    sendData : async (data) =>{
+        const response = await fetch(GoogleSheets.urlGoogle,{
             method: 'POST',
             body: JSON.stringify(data)
         })
@@ -14,8 +14,8 @@ const GoogleSheets = {
         } else
             console.error('Error', response.status);
     },
-    getDataProducts: async () => {
-        const response = await fetch(GoogleSheets.urlGoogle, {
+    getDataProducts : async () =>{
+        const response = await fetch(GoogleSheets.urlGoogle,{
             method: 'GET'
         })
 
@@ -24,4 +24,3 @@ const GoogleSheets = {
         }
     }
 }
-module.exports = GoogleSheets;
