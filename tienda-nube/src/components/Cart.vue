@@ -33,12 +33,15 @@
 </template>
 
 <script>
+import {GoogleSheets} from "../connectionWithGoogle";
+import { useAuthStore } from "@/store.js"
 import { useCartStore } from "@/store/carrito";
 
 export default {
   data() {
     return {
       cartStore: useCartStore(),
+      userStore: useAuthStore(),
     };
   },
   computed: {
@@ -48,6 +51,9 @@ export default {
     cartItemsCount() {
       return this.cartStore.cartItemsCount;
     },
+    user(){
+      return this.userStore.usuario;
+    }
   },
   methods: {
     removeFromCart(item) {
@@ -66,13 +72,38 @@ export default {
       }
       return "$" + total;
     },
+    getProducts(){
+      const cartStore = useCartStore();
+      let products = []
+      for (const item of cartStore.cart){
+        let product = {id:item.id, cantidad: item.cantidad,}
+        products.push(product);
+      }
+      return products;
+    },
+    getUser(){
+      const userStore = useAuthStore();
+      const proxyObject = userStore.usuario
+      const jsonObject = JSON.parse(JSON.stringify(proxyObject));
+  return jsonObject;
+    },
     checkout() {
       this.cartStore.showSummary = true;
       
     },
     finish(){
-       this.cartStore.clearCart();
+      let compra = {
+        productos: this.getProducts(),
+        usuario: this.getUser(),
+        total: this.getTotalBudget(),
+      }
+      console.log(compra)
+      GoogleSheets.enviarCompra(compra)
+        this.cartStore.clearCart();
        this.cartStore.showSummary = false;
+      
+      
+       
     }
   },
 };
