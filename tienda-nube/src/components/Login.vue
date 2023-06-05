@@ -113,6 +113,7 @@ const registro = ref({
   telefono: '',
   rol: ''
 });
+const historialCompras = ref([]);
 
 function registrarse() {
   mostrarCartelRegistro.value = true;
@@ -130,6 +131,9 @@ const datosInicio = ref({
 
 function iniciarSesion() {
   store.iniciarSesion(datosInicio);
+}
+function agregarCompraHistorial(compra) {
+  historialCompras.value.push(compra);
 }
 
 onMounted(async () => {
