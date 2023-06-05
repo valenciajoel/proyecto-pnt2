@@ -26,6 +26,7 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+.component('Login', Login)
 .use(router)
 .use(createPinia())
 .mount('#app')
