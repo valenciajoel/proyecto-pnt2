@@ -1,4 +1,6 @@
 <template>
+  <router-view></router-view>
+
   <div>
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
@@ -26,14 +28,17 @@
           Total: ${{ item.cantidad * item.price }}
         </li>
       </ul>
-            <button @click="finish">REINICIAR</button>
-
+      <button @click="finish">REINICIAR</button>
     </div>
   </div>
+    <router-view></router-view>
+
 </template>
 
 <script>
 import { useCartStore } from "@/store/carrito";
+import { useAuthStore } from "../store";
+import { useRouter } from "vue-router";
 
 export default {
   data() {
@@ -67,14 +72,22 @@ export default {
       return "$" + total;
     },
     checkout() {
-      this.cartStore.showSummary = true;
-      
+      const store = useAuthStore();
+      const router = useRouter();
+
+      if (store.hayUsuarioLogueado) {
+        this.cartStore.showSummary = true;
+      } else {
+        // Redirige al usuario a la vista de inicio de sesión
+        router.push("/Login");
+       
+      }
     },
-    finish(){
-       this.cartStore.clearCart();
-       this.cartStore.showSummary = false;
-    }
+
+    finish() {
+      this.cartStore.clearCart();
+      this.cartStore.showSummary = false;
+    },
   },
 };
-
 </script>
