@@ -31,15 +31,13 @@
       <button @click="finish">REINICIAR</button>
     </div>
   </div>
-    <router-view></router-view>
-
+  <router-view></router-view>
 </template>
 
 <script>
-import {GoogleSheets} from "../connectionWithGoogle";
-import { useAuthStore } from "@/store.js"
+import { GoogleSheets } from "../connectionWithGoogle";
+import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
-import { useAuthStore } from "../store";
 import { useRouter } from "vue-router";
 
 export default {
@@ -56,9 +54,9 @@ export default {
     cartItemsCount() {
       return this.cartStore.cartItemsCount;
     },
-    user(){
+    user() {
       return this.userStore.usuario;
-    }
+    },
   },
   methods: {
     removeFromCart(item) {
@@ -77,37 +75,43 @@ export default {
       }
       return "$" + total;
     },
-    getProducts(){
+    getProducts() {
       const cartStore = useCartStore();
-      let products = []
-      for (const item of cartStore.cart){
-        let product = {id:item.id, cantidad: item.cantidad,}
+      let products = [];
+      for (const item of cartStore.cart) {
+        let product = { id: item.id, cantidad: item.cantidad };
         products.push(product);
       }
       return products;
     },
-    getUser(){
+    getUser() {
       const userStore = useAuthStore();
-      const proxyObject = userStore.usuario
+      const proxyObject = userStore.usuario;
       const jsonObject = JSON.parse(JSON.stringify(proxyObject));
-  return jsonObject;
+      return jsonObject;
     },
     checkout() {
       const store = useAuthStore();
       const router = useRouter();
 
       if (store.hayUsuarioLogueado) {
+        const compra = {
+          items: [...cartStore.cart],
+          total: cartStore.getTotalBudget(),
+          fecha: new Date(),
+        };
         this.cartStore.showSummary = true;
       } else {
         // Redirige al usuario a la vista de inicio de sesión
         router.push("/Login");
-       
       }
+
+      authStore.agregarCompraHistorial(compra);
     },
-    finish(){
-       this.cartStore.clearCart();
-       this.cartStore.showSummary = false;
-    }
+    finish() {
+      this.cartStore.clearCart();
+      this.cartStore.showSummary = false;
+    },
   },
 };
 </script>
