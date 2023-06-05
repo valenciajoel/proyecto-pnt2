@@ -30,12 +30,15 @@ export const useAuthStore = defineStore('auth', () => {
   function cerrarSesion() {
     usuario.value = null;
   }
-
+  function getUsuario(){
+    
+    return usuario.value
+  }
   //es un getters
   const hayUsuarioLogueado = computed(() => usuario.value != null)
   const esAdministrador  = computed(() => administrador.value != null)
   
-  return { iniciarSesion, cerrarSesion, hayUsuarioLogueado, setUsuarios,esAdministrador }
+  return { iniciarSesion, cerrarSesion, hayUsuarioLogueado, setUsuarios,esAdministrador,usuario }
 
 })
 //hacer un usuario es administrador
