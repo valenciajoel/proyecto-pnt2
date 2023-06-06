@@ -1,0 +1,70 @@
+https://www.mockachino.com/bdda739c-cb46-4b/api-usuariosstore
+{
+  "usuarios": [
+    {
+      "idUsuario": 1,
+      "nombre": "Maria",
+      "apellido": "Lopez",
+      "email": "Lopez@gmail.com",
+      "password": "Esperanza45",
+      "dni": 35478962,
+      "rol": "administrador"
+    },
+    {
+      "idUsuario": 2,
+      "nombre": "Jose",
+      "apellido": "Perez",
+      "email": "Perez@gmail.com",
+      "password": "Jamon47",
+      "dni": 355896321,
+      "rol": "usuario"
+    },
+    {
+      "idUsuario": 3,
+      "nombre": "Lucia",
+      "apellido": "Gomez",
+      "email": "Gomez@gmail.com",
+      "password": "ECastaña695",
+      "dni": 35895745,
+      "rol": "usuario"
+    },
+    {
+      "idUsuario": 4,
+      "nombre": "Lorena",
+      "apellido": "Fernandez",
+      "email": "Fernandez@gmail.com",
+      "password": "Pered58",
+      "dni": 35129863,
+      "rol": "usuario"
+    },
+    {
+      "idUsuario": 5,
+      "nombre": "Ernesto",
+      "apellido": "Durin",
+      "email": "Durin@gmail.com",
+      "password": "Letrado82",
+      "dni": 35951748,
+      "rol": "usuario"
+    },
+    {
+      "idUsuario": 6,
+      "nombre": "Luciana",
+      "apellido": "Gerez",
+      "email": "Gerez@gmail.com",
+      "password": "Gato64",
+      "dni": 35357962,
+      "rol": "usuario"
+    },
+    {
+      "idUsuario": 7,
+      "nombre": "Juan",
+      "apellido": "Gonzalez",
+      "email": "Gonzalez@gmail.com",
+      "password": "Natura47",
+      "dni": 35568221,
+      "rol": "usuario"
+    }
+  ]
+}
+
+
