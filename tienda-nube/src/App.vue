@@ -1,7 +1,7 @@
 <script setup>
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useRouter } from "vue-router";
-
+import { watch } from "vue";
 
 const router = useRouter();
 
@@ -25,6 +25,10 @@ const login = () => {
   router.push("/Login");
 };
 
+const administrador = () => {
+  router.push("/Administrador");
+};
+
 import { ref } from "vue";
 import Login from "./components/Login.vue";
 
@@ -38,6 +42,16 @@ const closeLogin = () => {
   showLoginContent.value = false;
 };
 
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+const mostrarBotonAdministrador = ref(false);
+import { useAuthStore } from './store';
+
+const store = useAuthStore();
+
+watch(() => store.esAdministrador, (newValue) => {
+  mostrarBotonAdministrador.value = newValue;
+});
 
 </script>
 
@@ -66,32 +80,39 @@ const closeLogin = () => {
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="#" @click="home">Home</a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" @click="catalogo" href="#">Catalogo</a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" @click="contacto" href="#">Contacto</a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" @click="carrito" href="#">Carrito de compras</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"
                 data-bs-target="#LoginUser">Acceder</a>
-              <!-- Modal -->
-              <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <Login v-if="showLoginContent" @close="closeLogin" />
-                    </div>
+             
+            <!-- Modal -->
+            <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <Login v-if="showLoginContent" @close="closeLogin" />
                   </div>
                 </div>
               </div>
+            </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" v-if="mostrarBotonAdministrador" @click="administrador" href="#">Administrador</a>
             </li>
           </ul>
         </div>

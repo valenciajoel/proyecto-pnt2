@@ -10,6 +10,7 @@ import Contacto from './components/Contacto.vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import Carrito from './components/Cart.vue'
+import Administrador from './components/Administrador.vue';
 
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
     { path: '/Contacto', component:Contacto},
     { path: '/Productos', component:Productos},
     {path: '/Carrito', component:Carrito},
+    { path: '/Administrador', component: Administrador},
 ]
 
 const router = createRouter({

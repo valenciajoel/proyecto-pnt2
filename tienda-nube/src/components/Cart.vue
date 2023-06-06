@@ -1,26 +1,12 @@
 
 <template>
-
   <div>
 
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
-      <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"
-                data-bs-target="#LoginUser">Acceder</a>
-              <!-- Modal -->
-              <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <Login v-if="showLoginContent" @close="closeLogin" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div v-if="!userStore.hayUsuarioLogueado">
+        <p>Por favor, inicia sesión para realizar la compra.</p>
+      </div>
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
@@ -35,7 +21,7 @@
 
       <button @click="checkout">Finalizar compra</button>
     </div>
-    <div v-if="this.cartStore.showSummary">
+    <div v-if="cartStore.showSummary">
       <h1>Compra realizada con exito!</h1>
       <h2>Resumen de compra</h2>
 
@@ -47,16 +33,14 @@
         </li>
       </ul>
       <button @click="finish">REINICIAR</button>
-      <button @click="finish">FINALIZAR</button>
-      
 
+      <!-- Agregado: Mensaje de inicio de sesión requerido -->
     </div>
   </div>
-  <router-view></router-view>
 </template>
 
 <script>
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import { GoogleSheets } from "../connectionWithGoogle";
 import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
@@ -118,23 +102,25 @@ export default {
       return jsonObject;
     },
     checkout() {
+      let compra = null;
       const store = useAuthStore();
+      const cartStore = useCartStore();
       const router = useRouter();
 
       if (store.hayUsuarioLogueado) {
-        const compra = {
+        /*          compra = {
           items: [...cartStore.cart],
           total: cartStore.getTotalBudget(),
           fecha: new Date(),
-        };
-        this.cartStore.showSummary = true;
+        };  
+ */
+        //store.agregarCompraHistorial(compra);
+        cartStore.showSummary = true;
       } else {
-        // Redirige al usuario a la vista de inicio de sesión
-        router.push("/Login");
+        
       }
-
-      //store.agregarCompraHistorial(compra);
     },
+
     finish() {
       let compra = {
         productos: this.getProducts(),
