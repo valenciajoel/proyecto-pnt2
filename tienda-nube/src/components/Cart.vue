@@ -2,6 +2,9 @@
   <div>
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
+      <div v-if="!userStore.hayUsuarioLogueado">
+        <p>Por favor, inicia sesión para realizar la compra.</p>
+      </div>
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
@@ -27,11 +30,14 @@
         </li>
       </ul>
       <button @click="finish">REINICIAR</button>
+
+      <!-- Agregado: Mensaje de inicio de sesión requerido -->
     </div>
   </div>
 </template>
 
 <script>
+
 import { GoogleSheets } from "../connectionWithGoogle";
 import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
@@ -93,20 +99,23 @@ export default {
       const cartStore = useCartStore();
       const router = useRouter();
 
-      if (store.hayUsuarioLogueado && this.getTotalBudget() > 0) {
-        compra = {
+      if (store.hayUsuarioLogueado) {
+        /*          compra = {
           items: [...cartStore.cart],
           total: cartStore.getTotalBudget(),
           fecha: new Date(),
-        };
+        };  
+ */
+        //store.agregarCompraHistorial(compra);
         cartStore.showSummary = true;
-        store.agregarCompraHistorial(compra);
       } else {
-        // Redirige al usuario a la vista de inicio de sesión
-              this.$router.push("/Login");
-
-       
+        
       }
+    },
+
+    finish() {
+      this.cartStore.clearCart();
+      this.cartStore.showSummary = false;
     },
   },
 };
