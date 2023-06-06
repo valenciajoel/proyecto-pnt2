@@ -11,6 +11,7 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import Carrito from './components/Cart.vue'
 import Administrador from './components/Administrador.vue';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 const routes = [

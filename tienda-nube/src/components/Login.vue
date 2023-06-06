@@ -113,6 +113,7 @@ const registro = ref({
   telefono: '',
   rol: ''
 });
+
 const historialCompras = ref([]);
 
 function registrarse() {
