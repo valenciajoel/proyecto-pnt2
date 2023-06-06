@@ -1,6 +1,7 @@
 <script setup>
-import { useRouter } from "vue-router";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { useRouter } from "vue-router";
+
 
 const router = useRouter();
 
@@ -39,6 +40,8 @@ const closeLogin = () => {
 
 
 </script>
+
+
 
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />

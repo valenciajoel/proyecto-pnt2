@@ -1,25 +1,26 @@
 
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <!-- Modal -->
-  <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <Login v-if="showLoginContent" @close="closeLogin" />
-            </div>
-          </div>
-        </div>
-      </div>
 
   <div>
 
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
+      <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"
+                data-bs-target="#LoginUser">Acceder</a>
+              <!-- Modal -->
+              <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <Login v-if="showLoginContent" @close="closeLogin" />
+                    </div>
+                  </div>
+                </div>
+              </div>
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
@@ -45,21 +46,22 @@
           Total: ${{ item.cantidad * item.price }}
         </li>
       </ul>
+      <button @click="finish">REINICIAR</button>
       <button @click="finish">FINALIZAR</button>
+      
 
     </div>
   </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import { GoogleSheets } from "../connectionWithGoogle";
-import { useAuthStore } from "@/store.js"
-import { useCartStore } from "@/store/carrito";
-
-//Modal
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { GoogleSheets } from "../connectionWithGoogle";
+import { useAuthStore } from "@/store.js";
+import { useCartStore } from "@/store/carrito";
+import { useRouter } from "vue-router";
 import Login from "./Login.vue";
-
 export default {
   data() {
     return {
@@ -77,7 +79,7 @@ export default {
     },
     user() {
       return this.userStore.usuario;
-    }
+    },
   },
   methods: {
     removeFromCart(item) {
@@ -100,10 +102,14 @@ export default {
       const cartStore = useCartStore();
       let products = [];
       for (const item of cartStore.cart) {
-        let product = { id: item.id, cantidad: item.cantidad, };
-        products.push(product);
+        let product = { id: item.id, cantidad: item.cantidad };
+        let products = [];
+        for (const item of cartStore.cart) {
+          let product = { id: item.id, cantidad: item.cantidad, };
+          products.push(product);
+        }
+        return products;
       }
-      return products;
     },
     getUser() {
       const userStore = useAuthStore();
@@ -111,14 +117,23 @@ export default {
       const jsonObject = JSON.parse(JSON.stringify(proxyObject));
       return jsonObject;
     },
-    openLogin() {
-      this.showLoginContent = true; // Modifica esta línea
-    },
-    closeLogin() {
-      this.showLoginContent = false; // Modifica esta línea
-    },
     checkout() {
-      this.cartStore.showSummary = true;
+      const store = useAuthStore();
+      const router = useRouter();
+
+      if (store.hayUsuarioLogueado) {
+        const compra = {
+          items: [...cartStore.cart],
+          total: cartStore.getTotalBudget(),
+          fecha: new Date(),
+        };
+        this.cartStore.showSummary = true;
+      } else {
+        // Redirige al usuario a la vista de inicio de sesión
+        router.push("/Login");
+      }
+
+      //store.agregarCompraHistorial(compra);
     },
     finish() {
       let compra = {
@@ -130,9 +145,12 @@ export default {
       GoogleSheets.enviarCompra(compra);
       this.cartStore.clearCart();
       this.cartStore.showSummary = false;
-    }
-  },
-  components: { Login }
-};
-
+    },openLogin() {
+      this.showLoginContent = true;
+    },
+    closeLogin() {
+      this.showLoginContent = false;
+    },
+  }
+}
 </script>
