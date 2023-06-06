@@ -1,7 +1,5 @@
 <template>
   <div>
-    
-
     <h1>NEW ARRIVALS</h1>
     <div class="filter-buttons">
       <button
@@ -47,17 +45,9 @@
         <p>{{ product.name }}</p>
         <p>Precio: {{ product.price }}</p>
         <div class="quantity-selection">
-          <button
-            @click="product.cantidad = Math.max(1, (product.cantidad || 0) - 1)"
-          >
-            -
-          </button>
+          <button @click="decreaseQuantity(product)">-</button>
           <span>{{ product.cantidad || 0 }}</span>
-          <button
-            @click="product.cantidad = Math.min(8, (product.cantidad || 0) + 1)"
-          >
-            +
-          </button>
+          <button @click="increaseQuantity(product)">+</button>
         </div>
         <button @click="addToCart(product)">Agregar al carrito</button>
       </div>
@@ -69,84 +59,65 @@
         <h2>{{ selectedProduct.name }}</h2>
         <p>Precio: {{ selectedProduct.price }}</p>
         <p>Descripción: {{ selectedProduct.description }}</p>
-        <p>Cantidad :{{product.cantidad}}</p>
-
+        <p>Cantidad: {{ selectedProduct.cantidad }}</p>
       </div>
     </div>
   </div>
 </template>
-  
-<script>
+
+<script setup>
 import { products } from "@/products.js";
-import Cart from "./Cart.vue";
 import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
+import { ref, computed, nextTick } from "vue";
 
-export default {
-  components: {
-    Cart,
-  },
-  data() {
-    return {
-      displayedProducts: [],
-      searchQuery: "",
-      sortBy: "",
-      selectedProduct: null, // Agregado: Producto seleccionado para mostrar en detalle
-      showSearch: false,
-      carrito: [], // Agregado: Array para almacenar los productos en el carrito
-    };
-  },
+const displayedProducts = ref([]);
+displayedProducts.value = shuffle(products);
+const searchQuery = ref("");
+const sortBy = ref("");
+const selectedProduct = ref(null);
+const showSearch = ref(false);
 
-  created() {
-    this.displayedProducts = shuffle(products).slice(0, 9);
-    this.sortProducts();
-  },
-  methods: {
-    applyFilterProducts() {
-      const query = this.searchQuery.toLowerCase();
-      this.filteredProducts = this.displayedProducts.filter((product) =>
-        product.name.toLowerCase().includes(query)
-      );
-    },
-    sortProducts() {
-      if (this.sortBy === "price") {
-        this.displayedProducts.sort((a, b) => a.price - b.price);
-      } else if (this.sortBy === "name") {
-        this.displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
-      }
-    },
+const filterProducts = computed(() => {
+  const query = searchQuery.value.toLowerCase();
+  return displayedProducts.value.filter((product) =>
+    product.name.toLowerCase().includes(query)
+  );
+});
 
-    toggleSearch() {
-      this.showSearch = !this.showSearch;
-      if (this.showSearch) {
-        this.$nextTick(() => {
-          this.$refs.searchInput.focus();
-        });
-      } else {
-        this.searchQuery = "";
-      }
-    },
+function sortProducts() {
+  if (sortBy.value === "price") {
+    displayedProducts.value.sort((a, b) => a.price - b.price);
+  } else if (sortBy.value === "name") {
+    displayedProducts.value.sort((a, b) => a.name.localeCompare(b.name));
+  }
+}
 
-    addToCart(product) {
-      const cartStore = useCartStore();
-      cartStore.addToCart(product);
-    },
-    removeFromCart(item) {
-      const cartStore = useCartStore();
-      cartStore.removeFromCart(item);
-    },
-  },
-  computed: {
-    filterProducts() {
-      const query = this.searchQuery.toLowerCase();
-      return this.displayedProducts.filter((product) =>
-        product.name.toLowerCase().includes(query)
-      );
-    },
-  },
-};
+function toggleSearch() {
+  showSearch.value = !showSearch.value;
+  if (showSearch.value) {
+    nextTick(() => {
+      $refs.searchInput.focus();
+    });
+  } else {
+    searchQuery.value = "";
+  }
+}
+
+function addToCart(product) {
+  const cartStore = useCartStore();
+  cartStore.addToCart(product);
+}
+
+function decreaseQuantity(product) {
+  product.cantidad = Math.max(1, (product.cantidad || 0) - 1);
+}
+
+function increaseQuantity(product) {
+  product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
+}
 </script>
-  
+
 <style scoped>
 .image-container {
   display: flex;
@@ -206,5 +177,4 @@ export default {
   cursor: pointer;
   margin-left: 5px;
 }
-
 </style>

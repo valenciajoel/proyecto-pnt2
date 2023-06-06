@@ -5,6 +5,7 @@
       <div v-if="!userStore.hayUsuarioLogueado">
         <p>Por favor, inicia sesión para realizar la compra.</p>
       </div>
+
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
@@ -19,7 +20,7 @@
       <button @click="checkout">Finalizar compra</button>
     </div>
     <div v-if="cartStore.showSummary">
-      <h1>Compra realizada con exito!</h1>
+      <h1>Compra realizada con éxito!</h1>
       <h2>Resumen de compra</h2>
 
       <p>Total compra: {{ getTotalBudget() }}</p>
@@ -36,87 +37,56 @@
   </div>
 </template>
 
-<script>
-
+<script setup>
 import { GoogleSheets } from "../connectionWithGoogle";
 import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
 import { useRouter } from "vue-router";
 
-export default {
-  data() {
-    return {
-      cartStore: useCartStore(),
-      userStore: useAuthStore(),
-    };
-  },
-  computed: {
-    cart() {
-      return this.cartStore.cart;
-    },
-    cartItemsCount() {
-      return this.cartStore.cartItemsCount;
-    },
-    user() {
-      return this.userStore.usuario;
-    },
-  },
-  methods: {
-    removeFromCart(item) {
-      const cartStore = useCartStore();
-      cartStore.removeFromCart(item);
-    },
-    getTotalBudget() {
-      const cartStore = useCartStore();
-      let total = 0;
-      for (const item of cartStore.cart) {
-        const cantidad = parseFloat(item.cantidad);
-        const price = parseFloat(item.price);
-        if (!isNaN(cantidad) && !isNaN(price)) {
-          total += cantidad * price;
-        }
-      }
-      return "$" + total;
-    },
-    getProducts() {
-      const cartStore = useCartStore();
-      let products = [];
-      for (const item of cartStore.cart) {
-        let product = { id: item.id, cantidad: item.cantidad };
-        products.push(product);
-      }
-      return products;
-    },
-    getUser() {
-      const userStore = useAuthStore();
-      const proxyObject = userStore.usuario;
-      const jsonObject = JSON.parse(JSON.stringify(proxyObject));
-      return jsonObject;
-    },
-    checkout() {
-      let compra = null;
-      const store = useAuthStore();
-      const cartStore = useCartStore();
-      const router = useRouter();
+const cartStore = useCartStore();
+const userStore = useAuthStore();
 
-      if (store.hayUsuarioLogueado) {
-        /*          compra = {
-          items: [...cartStore.cart],
-          total: cartStore.getTotalBudget(),
-          fecha: new Date(),
-        };  
- */
-        //store.agregarCompraHistorial(compra);
-        cartStore.showSummary = true;
-      } else {
-        
-      }
-    },
+const cart = cartStore.cart;
+const cartItemsCount = cartStore.cartItemsCount;
+const user = userStore.usuario;
 
-    finish() {
-      this.cartStore.clearCart();
-      this.cartStore.showSummary = false;
-    },
-  },
-};
+function removeFromCart(item) {
+  cartStore.removeFromCart(item);
+}
+
+function getTotalBudget() {
+  let total = 0;
+  for (const item of cartStore.cart) {
+    const cantidad = parseFloat(item.cantidad);
+    const price = parseFloat(item.price);
+    if (!isNaN(cantidad) && !isNaN(price)) {
+      total += cantidad * price;
+    }
+  }
+  return "$" + total;
+}
+
+function getProducts() {
+  let products = [];
+  for (const item of cartStore.cart) {
+    let product = { id: item.id, cantidad: item.cantidad };
+    products.push(product);
+  }
+  return products;
+}
+
+function getUser() {
+  const proxyObject = userStore.usuario;
+  const jsonObject = JSON.parse(JSON.stringify(proxyObject));
+  return jsonObject;
+}
+
+function checkout() {
+  cartStore.showSummary = true;
+}
+
+function finish() {
+  cartStore.clearCart();
+  cartStore.showSummary = false;
+}
 </script>
