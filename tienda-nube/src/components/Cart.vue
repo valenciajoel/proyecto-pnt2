@@ -1,6 +1,4 @@
 <template>
-  <router-view></router-view>
-
   <div>
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
@@ -17,7 +15,7 @@
 
       <button @click="checkout">Finalizar compra</button>
     </div>
-    <div v-if="this.cartStore.showSummary">
+    <div v-if="cartStore.showSummary">
       <h1>Compra realizada con exito!</h1>
       <h2>Resumen de compra</h2>
 
@@ -31,7 +29,6 @@
       <button @click="finish">REINICIAR</button>
     </div>
   </div>
-  <router-view></router-view>
 </template>
 
 <script>
@@ -91,26 +88,25 @@ export default {
       return jsonObject;
     },
     checkout() {
+      let compra = null;
       const store = useAuthStore();
+      const cartStore = useCartStore();
       const router = useRouter();
 
-      if (store.hayUsuarioLogueado) {
-        const compra = {
+      if (store.hayUsuarioLogueado && this.getTotalBudget() > 0) {
+        compra = {
           items: [...cartStore.cart],
           total: cartStore.getTotalBudget(),
           fecha: new Date(),
         };
-        this.cartStore.showSummary = true;
+        cartStore.showSummary = true;
+        store.agregarCompraHistorial(compra);
       } else {
         // Redirige al usuario a la vista de inicio de sesión
-        router.push("/Login");
-      }
+              this.$router.push("/Login");
 
-      authStore.agregarCompraHistorial(compra);
-    },
-    finish() {
-      this.cartStore.clearCart();
-      this.cartStore.showSummary = false;
+       
+      }
     },
   },
 };
