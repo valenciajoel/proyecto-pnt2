@@ -116,6 +116,11 @@ function decreaseQuantity(product) {
 function increaseQuantity(product) {
   product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
 }
+
+
+
+
+
 </script>
 
 <style scoped>

@@ -89,4 +89,6 @@ function finish() {
   cartStore.clearCart();
   cartStore.showSummary = false;
 }
+
+
 </script>
