@@ -77,6 +77,7 @@ const searchQuery = ref("");
 const sortBy = ref("");
 const selectedProduct = ref(null);
 const showSearch = ref(false);
+const searchInput = ref(null)
 
 const filterProducts = computed(() => {
   const query = searchQuery.value.toLowerCase();
@@ -97,7 +98,7 @@ function toggleSearch() {
   showSearch.value = !showSearch.value;
   if (showSearch.value) {
     nextTick(() => {
-      $refs.searchInput.focus();
+      searchInput.value.focus();
     });
   } else {
     searchQuery.value = "";

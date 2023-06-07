@@ -1,54 +1,108 @@
 <template>
   <div>
-    <div v-if="!cartStore.showSummary">
-      <h2>Carrito de compras</h2>
-      <div v-if="!userStore.hayUsuarioLogueado">
-        <p>Por favor, inicia sesión para realizar la compra.</p>
+    <div class="cart-container" v-if="!cartStore.showSummary">
+      <div class="products-container">
+        <h2>Carrito de compras</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="column-header">Precio</th>
+              <th class="column-header">Cantidad</th>
+              <th class="column-header">Subtotal</th>
+              <th class="column-header">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in cart" :key="item.id">
+              <td>{{ item.name }}</td>
+              <td>${{ item.price }}</td>
+              <td>{{ item.cantidad }}</td>
+              <td>${{ item.cantidad * item.price }}</td>
+              <td>
+                <button @click="removeFromCart(item)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <ul>
-        <li v-for="item in cart" :key="item.id">
-          {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
-          Total : ${{ item.cantidad * item.price }}
-          <br />
-          <button @click="removeFromCart(item)">Eliminar</button>
-        </li>
-      </ul>
-      <p>Total de artículos: {{ cartItemsCount }}</p>
-      <p>Presupuesto total: {{ getTotalBudget() }}</p>
-
-      <button @click="checkout">Finalizar compra</button>
+      <div class="summary-container">
+        <div class="summary">
+          <h3>Resumen de compra</h3>
+          <p>Total: ${{ getTotalBudget() }}</p>
+          <button @click="checkout">Finalizar compra</button>
+        </div>
+        <div v-if="!store.hayUsuarioLogueado && showLoginContent" class="login-container">
+          <p>Debes iniciar sesión para finalizar la compra.</p>
+          <button class="btn btn-primary" @click="openLogin" href="#" data-bs-toggle="modal"
+            data-bs-target="#LoginUser">Acceder</button>
+        </div>
+      </div>
     </div>
+
     <div v-if="cartStore.showSummary">
-      <h1>Compra realizada con éxito!</h1>
-      <h2>Resumen de compra</h2>
+      <div class="summary-container">
+        <h1>Compra realizada con éxito!</h1>
+        <h2>Resumen de compra</h2>
 
-      <p>Total compra: {{ getTotalBudget() }}</p>
-      <ul>
-        <li v-for="item in cart" :key="item.id">
-          {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
-          Total: ${{ item.cantidad * item.price }}
-        </li>
-      </ul>
-      <button @click="finish">REINICIAR</button>
+        <p>Total compra: ${{ getTotalBudget() }}</p>
+        <ul>
+          <li v-for="item in cart" :key="item.id">
+            {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} - Total: ${{ item.cantidad * item.price }}
+          </li>
+        </ul>
+        <button @click="finish">REINICIAR</button>
+      </div>
+    </div>
 
-      <!-- Agregado: Mensaje de inicio de sesión requerido -->
+    <!-- Mensaje de inicio de sesión requerido -->
+    <div v-if="!store.hayUsuarioLogueado && showLoginContent">
+      <p>Debes iniciar sesión para finalizar la compra.</p>
+      <button class="btn btn-primary" @click="openLogin" href="#" data-bs-toggle="modal"
+        data-bs-target="#LoginUser">Acceder</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <Login v-if="showLoginContent" @close="closeLogin" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { GoogleSheets } from "../connectionWithGoogle";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
-import { useRouter } from "vue-router";
+import Login from "./Login.vue";
+import { ref } from "vue";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
+
+const showLoginContent = ref(false);
+
+const openLogin = () => {
+  showLoginContent.value = true;
+};
+
+const closeLogin = () => {
+  showLoginContent.value = false;
+};
 
 const cartStore = useCartStore();
 const userStore = useAuthStore();
+const store = useAuthStore();
 
 const cart = cartStore.cart;
 const cartItemsCount = cartStore.cartItemsCount;
-const user = userStore.usuario;
 
 function removeFromCart(item) {
   cartStore.removeFromCart(item);
@@ -63,7 +117,7 @@ function getTotalBudget() {
       total += cantidad * price;
     }
   }
-  return "$" + total;
+  return total;
 }
 
 function getProducts() {
@@ -82,7 +136,12 @@ function getUser() {
 }
 
 function checkout() {
-  cartStore.showSummary = true;
+  if (store.hayUsuarioLogueado) {
+    cartStore.showSummary = true;
+  } else {
+    openLogin();
+  }
+
 }
 
 function finish() {
@@ -92,3 +151,39 @@ function finish() {
 
 
 </script>
+
+<style scoped>
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.products-container {
+  width: 50%;
+}
+
+.summary-container {
+  width: 40%;
+  background-color: #fbf8f8;
+  padding: 20px;
+}
+
+.summary {
+  margin-bottom: 20px;
+}
+
+.login-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.column-header {
+  padding: 10px 20px; /* Ajusta el espaciado según tus preferencias */
+}
+</style>

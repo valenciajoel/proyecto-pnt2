@@ -46,6 +46,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const mostrarBotonAdministrador = ref(false);
 import { useAuthStore } from './store';
 
+
 const store = useAuthStore();
 
 watch(() => store.esAdministrador, (newValue) => {
