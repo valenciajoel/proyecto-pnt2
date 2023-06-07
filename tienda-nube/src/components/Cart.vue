@@ -6,19 +6,21 @@
         <table>
           <thead>
             <tr>
+              
+             <th class="column-header">Nombre</th>
               <th class="column-header">Precio</th>
-              <th class="column-header">Cantidad</th>
+               <th class="column-header">Cantidad</th>
               <th class="column-header">Subtotal</th>
-              <th class="column-header">Total</th>
+              
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in cart" :key="item.id">
-              <td>{{ item.name }}</td>
-              <td>${{ item.price }}</td>
-              <td>{{ item.cantidad }}</td>
-              <td>${{ item.cantidad * item.price }}</td>
-              <td>
+              <td class="column-header">{{ item.name }}</td>
+              <td class="column-header">${{ item.price }}</td>
+              <td class="column-header">{{ item.cantidad }}</td>
+              <td class="column-header">${{ item.cantidad * item.price }}</td>
+              <td >
                 <button @click="removeFromCart(item)">Eliminar</button>
               </td>
             </tr>
