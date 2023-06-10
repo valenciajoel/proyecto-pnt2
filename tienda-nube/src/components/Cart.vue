@@ -57,11 +57,7 @@
     </div>
 
     <!-- Mensaje de inicio de sesión requerido -->
-    <div v-if="!store.hayUsuarioLogueado && showLoginContent">
-      <p>Debes iniciar sesión para finalizar la compra.</p>
-      <button class="btn btn-primary" @click="openLogin" href="#" data-bs-toggle="modal"
-        data-bs-target="#LoginUser">Acceder</button>
-
+    <div>
       <!-- Modal -->
       <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -90,6 +86,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 
 const showLoginContent = ref(false);
+const cartStore = useCartStore();
+const userStore = useAuthStore();
+const store = useAuthStore();
+const cart = cartStore.cart;
+const cartItemsCount = cartStore.cartItemsCount;//No se Usa
+
 
 const openLogin = () => {
   showLoginContent.value = true;
@@ -99,12 +101,6 @@ const closeLogin = () => {
   showLoginContent.value = false;
 };
 
-const cartStore = useCartStore();
-const userStore = useAuthStore();
-const store = useAuthStore();
-
-const cart = cartStore.cart;
-const cartItemsCount = cartStore.cartItemsCount;
 
 function removeFromCart(item) {
   cartStore.removeFromCart(item);

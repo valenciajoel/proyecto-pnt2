@@ -1,59 +1,3 @@
-<script setup>
-import { useRouter } from "vue-router";
-import { watch } from "vue";
-
-const router = useRouter();
-
-const home = () => {
-  router.push("/");
-};
-
-const catalogo = () => {
-  router.push("/Productos");
-};
-
-const contacto = () => {
-  router.push("/Contacto");
-};
-
-const carrito = () => {
-  router.push("/Carrito");
-};
-
-const login = () => {
-  router.push("/Login");
-};
-
-const administrador = () => {
-  router.push("/Administrador");
-};
-
-import { ref } from "vue";
-import Login from "./components/Login.vue";
-
-const showLoginContent = ref(false);
-
-const openLogin = () => {
-  showLoginContent.value = true;
-};
-
-const closeLogin = () => {
-  showLoginContent.value = false;
-};
-
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
-const mostrarBotonAdministrador = ref(false);
-import { useAuthStore } from './store';
-
-
-const store = useAuthStore();
-
-watch(() => store.esAdministrador, (newValue) => {
-  mostrarBotonAdministrador.value = newValue;
-});
-
-</script>
 
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -135,15 +79,74 @@ watch(() => store.esAdministrador, (newValue) => {
       <div class="footer-column">
         <h3>Social</h3>
         <p>Seguinos en:</p>
-        <div class="social-icons">
-          <i class="fa fa-facebook"></i>
-          <i class="fa fa-twitter"></i>
-          <i class="fa fa-instagram"></i>
-        </div>
+        <div class="social-media-icons">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/twitter-logo.png" alt="Twitter" />
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/facebook-logo.png" alt="Facebook" />
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/instagram-logo.png" alt="Instagram" />
+        </a>
+      </div>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+import { watch } from "vue";
+import { ref } from "vue";
+import Login from "./components/Login.vue";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { useAuthStore } from './store';
+
+const router = useRouter();
+const showLoginContent = ref(false);
+const mostrarBotonAdministrador = ref(false);
+const store = useAuthStore();
+
+const home = () => {
+  router.push("/");
+};
+
+const catalogo = () => {
+  router.push("/Productos");
+};
+
+const contacto = () => {
+  router.push("/Contacto");
+};
+
+const carrito = () => {
+  router.push("/Carrito");
+};
+
+const login = () => {
+  router.push("/Login");
+};
+
+const administrador = () => {
+  router.push("/Administrador");
+};
+
+
+const openLogin = () => {
+  showLoginContent.value = true;
+};
+
+const closeLogin = () => {
+  showLoginContent.value = false;
+};
+
+
+watch(() => store.esAdministrador, (newValue) => {
+  mostrarBotonAdministrador.value = newValue;
+});
+
+</script>
 
 <style>
 /* Estilos adicionales */

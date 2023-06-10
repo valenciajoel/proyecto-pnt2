@@ -1,55 +1,38 @@
 <template>
   <div>
-    <h1>NEW ARRIVALS</h1>
-    <div class="filter-buttons">
-      <button
-        @click="
-          sortBy = 'price';
-          sortProducts();
-        "
-      >
-        Ordenar por precio
-      </button>
-      <button
-        @click="
-          sortBy = 'name';
-          sortProducts();
-        "
-      >
-        Ordenar por nombre
-      </button>
-    </div>
-    <div class="search-container">
-      <input
-        v-show="showSearch"
-        v-model="searchQuery"
-        type="text"
-        placeholder="Buscar por nombre"
-        class="search-input"
-        @input="filterProducts"
-        ref="searchInput"
-      />
-      <button class="search-button" @click="toggleSearch()">
-        <i v-show="!showSearch" class="fa fa-search"></i>
-        <i v-show="showSearch" class="fa fa-times"></i>
-      </button>
+    <div class="d-flex align-items-center justify-content-center">
+  <h1>Recién llegados</h1>
+</div>
+    <div class="d-flex justify-content-between">
+      <div class="filter-buttons d-flex align-items-center">
+        <button class="btn btn-outline-dark btn-sm btn-block -sm" @click="sortBy = 'price'; sortProducts();">
+          Ordenar por precio
+        </button>
+        <button class="btn btn-outline-dark btn-sm btn-block -sm " @click="sortBy = 'name'; sortProducts();">
+          Ordenar por nombre
+        </button>
+      </div>
+      <div class="search-container d-flex align-items-center">
+        <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input"
+          @input="filterProducts" ref="searchInput" />
+        <button class="search-button" @click="toggleSearch()">
+          <i v-show="!showSearch" class="fa fa-search"></i>
+          <i v-show="showSearch" class="fa fa-times"></i>
+        </button>
+      </div>
     </div>
 
     <div class="image-container">
-      <div
-        v-for="product in filterProducts"
-        :key="product.id"
-        class="product-column"
-      >
+      <div v-for="product in filterProducts" :key="product.id" class="product-column">
         <img :src="product.image" :alt="product.name" class="product-image" />
         <p>{{ product.name }}</p>
-        <p>Precio: {{ product.price }}</p>
+        <p>${{ product.price }}</p>
         <div class="quantity-selection">
-          <button @click="decreaseQuantity(product)">-</button>
-          <span>{{ product.cantidad || 0 }}</span>
-          <button @click="increaseQuantity(product)">+</button>
+          <button class="btn btn-outline-dark btn-block m-1" @click="decreaseQuantity(product)">-</button>
+          <span class="m-1">{{ product.cantidad || 0 }}</span>
+          <button class="btn btn-outline-dark btn-block" @click="increaseQuantity(product)">+</button>
         </div>
-        <button @click="addToCart(product)">Agregar al carrito</button>
+        <button class="btn btn-outline-dark btn-block m-1 m-1" @click="addToCart(product)">Agregar al carrito</button>
       </div>
     </div>
 
@@ -71,6 +54,7 @@ import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
 import { ref, computed, nextTick } from "vue";
 
+
 const displayedProducts = ref([]);
 displayedProducts.value = shuffle(products);
 const searchQuery = ref("");
@@ -78,6 +62,7 @@ const sortBy = ref("");
 const selectedProduct = ref(null);
 const showSearch = ref(false);
 const searchInput = ref(null)
+
 
 const filterProducts = computed(() => {
   const query = searchQuery.value.toLowerCase();
@@ -121,7 +106,6 @@ function increaseQuantity(product) {
 
 
 
-
 </script>
 
 <style scoped>
@@ -138,6 +122,14 @@ function increaseQuantity(product) {
   margin-right: 20px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centra horizontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  text-align: center;
+  /* Centra el texto */
 }
 
 .product-column:nth-child(3n + 3) {

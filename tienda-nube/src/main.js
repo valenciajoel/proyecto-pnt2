@@ -12,7 +12,7 @@ import { createPinia } from 'pinia'
 import Carrito from './components/Cart.vue'
 import Administrador from './components/Administrador.vue';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
+import Promocion from './components/Promocion.vue';
 
 const routes = [
     { path: '/', component:Home},
@@ -21,6 +21,7 @@ const routes = [
     { path: '/Productos', component:Productos},
     {path: '/Carrito', component:Carrito},
     { path: '/Administrador', component: Administrador},
+    { path: '/Promocion', component: Promocion},
 ]
 
 const router = createRouter({

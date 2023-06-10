@@ -99,10 +99,9 @@ import { useAuthStore } from '../store';
 import axios from 'axios';
 
 const mostrarCartelRegistro = ref(false);
-
 const mostrarMensajeRegistroExitoso = ref();
-
 const store = useAuthStore();
+const historialCompras = ref([]);
 
 const registro = ref({
   nombre: '',
@@ -114,7 +113,7 @@ const registro = ref({
   rol: ''
 });
 
-const historialCompras = ref([]);
+
 
 function registrarse() {
   mostrarCartelRegistro.value = true;
