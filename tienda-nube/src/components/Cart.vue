@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="cart-container " v-if="!cartStore.showSummary">
+    <div class="cart-container ">
       <div class="products-container row justify-content-start border rounded btn-sm btn-block ">
         <h2>Carrito de compras</h2>
         <ModalsContainer/>
@@ -37,21 +37,6 @@
       </div>
 
     </div>
-
-    <div v-if="cartStore.showSummary">
-      <div class="summary-container">
-        <h1>Compra realizada con éxito!</h1>
-        <h2>Resumen de compra</h2>
-
-        <p>Total compra: ${{ getTotalBudget() }}</p>
-        <ul>
-          <li v-for="item in cart" :key="item.id">
-            {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} - Total: ${{ item.cantidad * item.price }}
-          </li>
-        </ul>
-        <button @click="finish">REINICIAR</button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -65,20 +50,39 @@ import { useCartStore } from "@/store/carrito";
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import Modal from '../Modal.vue'
 import Login from "./Login.vue";
-const { open, close } = useModal({
-  component: Modal,
+import Resume from "./Resume.vue";
+async function openModal (title,comp) {
+  const {open,close} = useModal({
+    component: Modal,
   attrs: {
-    title: 'Por favor ingrese sesion',
+    title: title,
     onConfirm() {
       close()
     },
   },
   slots: {
-    default: Login,
+    default: comp,
   },
-})
+  })
+  open()
+}
+async function openResume () {
+  const {open,close} = useModal({
+    component: Resume,
+  attrs: {
+    title: "Gracias por su compra",
+    total: getTotalBudget(),
+    carrito: getProducts(),
+    onConfirm() {
+      close()
+    },
+  },
+  slots: {
+  },
+  })
+  open()
+}
 
-const showLoginContent = ref(false);
 const cartStore = useCartStore();
 const userStore = useAuthStore();
 const cart = cartStore.cart;
@@ -104,7 +108,7 @@ function getTotalBudget() {
 function getProducts() {
   let products = [];
   for (const item of cartStore.cart) {
-    let product = { id: item.id, cantidad: item.cantidad };
+    let product = { id: item.id, cantidad: item.cantidad, name: item.name, price: item.price };
     products.push(product);
   }
   return products;
@@ -118,9 +122,9 @@ function getUser() {
 
 function checkout() {
   if (!userStore.hayUsuarioLogueado) {
-    open()
+    openModal("Por favor inicie sesion", Login)
   } else {
-    cartStore.showSummary = true;
+    finish()
   }
 }
 function getCompra(){
@@ -129,12 +133,13 @@ function getCompra(){
     ,productos: getProducts()
     ,total: getTotalBudget()
   }
-  return JSON.stringify(compra);
+  return compra;
 }
 function finish() {
-  console.log(getCompra())
-  cartStore.clearCart();
-  cartStore.showSummary = false;
+  openResume()
+  GoogleSheets.enviarCompra(getCompra())
+  cartStore.clearCart()
+  
 }
 
 

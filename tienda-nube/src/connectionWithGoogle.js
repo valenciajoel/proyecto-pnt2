@@ -1,6 +1,6 @@
 
 export const GoogleSheets = {
-    urlGoogle : "https://script.google.com/macros/s/AKfycbzqb5u1bXM75G_TLWu3C2ENZ9P9UCsYHadcRfImUUzzfAQyXvdP9rQojYEBJtX1gKYfYA/exec",
+    urlGoogle : "https://script.google.com/macros/s/AKfycbzLCTBs0NqwH2EgX1Jn2jF-Y1A42hbRBdx_6RKlIwYvwR8LLk0eR5_qzhKZPTw1om97NA/exec",
     enviarCompra : async (data) =>{
         let url = GoogleSheets.urlGoogle + "?action=crearCompra";
         const response = await fetch(url,{
