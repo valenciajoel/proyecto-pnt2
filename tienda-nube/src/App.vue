@@ -2,6 +2,22 @@
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useRouter } from "vue-router";
 import { watch } from "vue";
+import { ref } from "vue";
+import { useAuthStore } from './store';
+import { ModalsContainer, useModal } from 'vue-final-modal'
+import Modal from './Modal.vue'
+const { open, close } = useModal({
+  component: Modal,
+  attrs: {
+    title: 'Hello World!',
+    onConfirm() {
+      close()
+    },
+  },
+  slots: {
+    default: '<p>The content of the modal</p>',
+  },
+})
 
 const router = useRouter();
 
@@ -29,29 +45,15 @@ const administrador = () => {
   router.push("/Administrador");
 };
 
-import { ref } from "vue";
-import Login from "./components/Login.vue";
-
-const showLoginContent = ref(false);
-
-const openLogin = () => {
-  showLoginContent.value = true;
-};
-
-const closeLogin = () => {
-  showLoginContent.value = false;
-};
-
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
 const mostrarBotonAdministrador = ref(false);
-import { useAuthStore } from './store';
 
 const store = useAuthStore();
 
 watch(() => store.esAdministrador, (newValue) => {
   mostrarBotonAdministrador.value = newValue;
 });
+
+
 
 </script>
 
@@ -93,23 +95,8 @@ watch(() => store.esAdministrador, (newValue) => {
               <a class="nav-link" @click="carrito" href="#">Carrito de compras</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"
-                data-bs-target="#LoginUser">Acceder</a>
-
-              <!-- Modal -->
-              <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <Login v-if="showLoginContent" @close="closeLogin" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <a class="nav-link" @click="open" href="#">Acceder</a>
+              <ModalsContainer />
             </li>
             <li class="nav-item">
               <a class="nav-link" v-if="mostrarBotonAdministrador" @click="administrador" href="#">Administrador</a>

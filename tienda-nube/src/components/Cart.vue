@@ -1,27 +1,8 @@
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <div>
     <div v-if="!cartStore.showSummary">
       <h2>Carrito de compras</h2>
-            <!-- Modal -->
-            <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal" data-bs-target="#LoginUser">Acceder</a>
-      <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <Login v-if="showLoginContent" @close="closeLogin" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="!userStore.hayUsuarioLogueado">
-        <p>Por favor, inicia sesión para realizar la compra.</p>
-      </div>
-
+      <ModalsContainer />
       <ul>
         <li v-for="item in cart" :key="item.id">
           {{ item.name }} - ${{ item.price }} - Cantidad: {{ item.cantidad }} -
@@ -59,27 +40,26 @@
 import { GoogleSheets } from "../connectionWithGoogle";
 import { useAuthStore } from "@/store.js";
 import { useCartStore } from "@/store/carrito";
-import { useRouter } from "vue-router";
-
-import { ref } from "vue";
-import {Login} from "./Login.vue";
-
-const showLoginContent = ref(false);
-
-const openLogin = () => {
-  showLoginContent.value = true;
-};
-
-const closeLogin = () => {
-  showLoginContent.value = false;
-};
+import { ModalsContainer, useModal } from 'vue-final-modal'
+import Modal from '../Modal.vue'
+const { open, close } = useModal({
+  component: Modal,
+  attrs: {
+    title: 'Hello World!',
+    onConfirm() {
+      close()
+    },
+  },
+  slots: {
+    default: '<p>The content of the modal</p>',
+  },
+})
 
 const cartStore = useCartStore();
 const userStore = useAuthStore();
-
 const cart = cartStore.cart;
 const cartItemsCount = cartStore.cartItemsCount;
-const user = userStore.usuario;
+
 
 function removeFromCart(item) {
   cartStore.removeFromCart(item);
@@ -113,8 +93,11 @@ function getUser() {
 }
 
 function checkout() {
-
-  cartStore.showSummary = true;
+  if (!userStore.hayUsuarioLogueado) {
+    open()
+  } else {
+    cartStore.showSummary = true;
+  }
 }
 
 function finish() {
