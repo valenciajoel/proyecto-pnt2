@@ -1,37 +1,36 @@
 <template>
   <div>
-    <div class="cart-container" v-if="!cartStore.showSummary">
-      <div class="products-container">
+    <div class="cart-container " v-if="!cartStore.showSummary">
+      <div class="products-container row justify-content-start border rounded btn-sm btn-block ">
         <h2>Carrito de compras</h2>
-        <table>
+        <table >
           <thead>
-            <tr>
-              
+            <tr class="border-bottom">
              <th class="column-header">Nombre</th>
               <th class="column-header">Precio</th>
                <th class="column-header">Cantidad</th>
               <th class="column-header">Subtotal</th>
-              
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="item in cart" :key="item.id">
-              <td class="column-header">{{ item.name }}</td>
+          <tbody  >
+            <tr class="border-bottom" v-for="item in cart" :key="item.id">
+              <td class="column-header ">{{ item.name }}</td>
               <td class="column-header">${{ item.price }}</td>
               <td class="column-header">{{ item.cantidad }}</td>
               <td class="column-header">${{ item.cantidad * item.price }}</td>
               <td >
-                <button @click="removeFromCart(item)">Eliminar</button>
+                <button class="border rounded"  @click="removeFromCart(item)">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="summary-container">
-        <div class="summary">
-          <h3>Resumen de compra</h3>
-          <p>Total: ${{ getTotalBudget() }}</p>
-          <button @click="checkout">Finalizar compra</button>
+
+      <div class="summary-container text-center border rounded  btn-block">
+        <div class="summary ">
+          <h3 class="mb-5">Resumen de compra</h3>
+          <p class="mb-5">Total: ${{ getTotalBudget() }}</p>
+          <button class="mb-5 border rounded" @click="checkout">Finalizar compra</button>
         </div>
         <div v-if="!store.hayUsuarioLogueado && showLoginContent" class="login-container">
           <p>Debes iniciar sesión para finalizar la compra.</p>
@@ -39,6 +38,7 @@
             data-bs-target="#LoginUser">Acceder</button>
         </div>
       </div>
+
     </div>
 
     <div v-if="cartStore.showSummary">
@@ -154,18 +154,21 @@ function finish() {
 .cart-container {
   display: flex;
   justify-content: space-between;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  padding-block-end:270px ;
+  padding-top: 10px;
 }
 
 .products-container {
-  width: 50%;
+  width: 60%;
+  padding-top: 8px;
+  padding-right: 10px;
 }
 
 .summary-container {
   width: 40%;
-  background-color: #fbf8f8;
-  padding: 20px;
+  padding-top: 10px;
 }
 
 .summary {

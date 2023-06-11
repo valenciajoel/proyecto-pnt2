@@ -16,7 +16,8 @@
           <span>{{ producto.cantidad || 0 }}</span>
           <button class="btn btn-outline-dark btn-block m-1" @click="increaseQuantity(producto)">+</button>
         </div>
-        <button id="agregar-carrito-btn" class="btn btn-outline-dark btn-block m-1" @click="agregarAlCarrito(producto)">Agregar al carrito</button>
+        
+        <button id="agregar-carrito-btn" class="btn btn-outline-dark btn-block" @click="agregarAlCarrito(producto)">Agregar al carrito</button>
       </div>
     </div>
   </div>
@@ -108,7 +109,6 @@ function calcularPrecioDescuento(producto) {
 #agregar-carrito-btn {
   display: block;
   margin: 0 auto;
-  text-align: center;
 }
 
 </style>

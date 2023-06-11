@@ -103,6 +103,7 @@ import Login from "./components/Login.vue";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useAuthStore } from './store';
 
+
 const router = useRouter();
 const showLoginContent = ref(false);
 const mostrarBotonAdministrador = ref(false);
