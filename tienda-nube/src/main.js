@@ -1,6 +1,3 @@
-import * as bootstrap from 'bootstrap';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 import { createApp } from 'vue';
 import {createRouter,createWebHistory} from 'vue-router';
 import Productos from './components/Productos.vue'
@@ -11,6 +8,8 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import Carrito from './components/Cart.vue'
 import Administrador from './components/Administrador.vue';
+import { createVfm } from 'vue-final-modal'
+import 'vue-final-modal/style.css'
 
 
 const routes = [
@@ -26,9 +25,11 @@ const router = createRouter({
     routes,
     history:createWebHistory()
 })
+const vfm = createVfm()
 
 const app = createApp(App)
 .component('Login', Login)
 .use(router)
+.use(vfm)
 .use(createPinia())
 .mount('#app')

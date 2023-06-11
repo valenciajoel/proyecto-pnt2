@@ -95,21 +95,21 @@ watch(() => store.esAdministrador, (newValue) => {
             <li class="nav-item">
               <a class="nav-link" @click="openLogin" href="#" data-bs-toggle="modal"
                 data-bs-target="#LoginUser">Acceder</a>
-             
-            <!-- Modal -->
-            <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <Login v-if="showLoginContent" @close="closeLogin" />
+
+              <!-- Modal -->
+              <div class="modal fade" id="LoginUser" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <!--<h1 class="modal-title fs-5" id="modalLogin">Modal title</h1>-->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <Login v-if="showLoginContent" @close="closeLogin" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" v-if="mostrarBotonAdministrador" @click="administrador" href="#">Administrador</a>
