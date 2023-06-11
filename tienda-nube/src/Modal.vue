@@ -1,6 +1,6 @@
   <script setup lang="ts">
   import { VueFinalModal } from 'vue-final-modal'
-import Login from './components/Login.vue';
+
 
   defineProps<{
     title?: string
@@ -19,8 +19,7 @@ import Login from './components/Login.vue';
       content-transition="vfm-fade"
     >
       <h1>{{ title }}</h1>
-      <Login/>
-     
+      <slot />
       <button @click="emit('confirm')">
         Confirm
       </button>

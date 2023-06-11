@@ -6,6 +6,7 @@ import { ref } from "vue";
 import { useAuthStore } from './store';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import Modal from './Modal.vue'
+import Login from "./components/Login.vue";
 const { open, close } = useModal({
   component: Modal,
   attrs: {
@@ -13,6 +14,9 @@ const { open, close } = useModal({
     onConfirm() {
       close()
     },
+  },
+  slots: {
+    default: Login,
   },
 })
 

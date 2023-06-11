@@ -64,6 +64,7 @@ import {ref} from "vue"
 import { useCartStore } from "@/store/carrito";
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import Modal from '../Modal.vue'
+import Login from "./Login.vue";
 const { open, close } = useModal({
   component: Modal,
   attrs: {
@@ -73,7 +74,7 @@ const { open, close } = useModal({
     },
   },
   slots: {
-    default: '<p>The content of the modal</p>',
+    default: Login,
   },
 })
 
@@ -122,8 +123,16 @@ function checkout() {
     cartStore.showSummary = true;
   }
 }
-
+function getCompra(){
+  const compra = {
+    usuario: getUser().idUsuario
+    ,productos: getProducts()
+    ,total: getTotalBudget()
+  }
+  return JSON.stringify(compra);
+}
 function finish() {
+  console.log(getCompra())
   cartStore.clearCart();
   cartStore.showSummary = false;
 }
