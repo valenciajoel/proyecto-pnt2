@@ -43,9 +43,7 @@
 <script setup>
 
 import { GoogleSheets } from "../connectionWithGoogle";
-import { useRouter } from "vue-router";
 import { useAuthStore } from "@/store.js";
-import {ref} from "vue"
 import { useCartStore } from "@/store/carrito";
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import Modal from '../Modal.vue'
@@ -123,7 +121,9 @@ function getUser() {
 function checkout() {
   if (!userStore.hayUsuarioLogueado) {
     openModal("Por favor inicie sesion", Login)
-  } else {
+  }else if(getTotalBudget() == 0){
+    openModal("Error", "<p>Por favor ingrese articulos para poder continuar</p>")
+  }else {
     finish()
   }
 }
