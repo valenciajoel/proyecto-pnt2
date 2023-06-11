@@ -2,8 +2,6 @@
   <div>
     <form @submit.prevent="iniciarSesion">
 
-      <h2>Inicie sesion</h2>
-
       <label for="email" class="form-label mb-3">Correo electrónico:</label>
       <input v-model="datosInicio.email" type="email" class="form-control" id="email" required>
 

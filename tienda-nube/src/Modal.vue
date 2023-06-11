@@ -20,7 +20,7 @@ import Login from './components/Login.vue';
     >
       <h1>{{ title }}</h1>
       <Login/>
-      <slot />
+     
       <button @click="emit('confirm')">
         Confirm
       </button>

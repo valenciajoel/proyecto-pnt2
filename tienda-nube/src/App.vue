@@ -9,13 +9,10 @@ import Modal from './Modal.vue'
 const { open, close } = useModal({
   component: Modal,
   attrs: {
-    title: 'Hello World!',
+    title: 'Inicie Sesion',
     onConfirm() {
       close()
     },
-  },
-  slots: {
-    default: '<p>The content of the modal</p>',
   },
 })
 
