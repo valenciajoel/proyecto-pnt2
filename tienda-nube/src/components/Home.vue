@@ -1,24 +1,3 @@
-<script setup>
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
-import { products } from "@/products.js";
-
-const cardsPerSlide = 3; // Número de tarjetas que se mostrarán por slide
-
-const chunkedProducts = (() => {
-    // Dividir los productos en grupos según el número de tarjetas por slide
-    const chunkSize = cardsPerSlide;
-    const productsCopy = [...products]; // Hacer una copia de los productos para no modificar el array original
-    const chunkedArray = [];
-
-    while (productsCopy.length > 0) {
-        chunkedArray.push(productsCopy.splice(0, chunkSize));
-    }
-
-    return chunkedArray;
-})();
-
-</script>
 
 
 <template>
@@ -64,14 +43,13 @@ const chunkedProducts = (() => {
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="../img/Promocion 30off.png" 
-                    class="d-block w-100" style="width: 300px; height: 600px;">
+                    <img src="../img/Promocion 30off.png" class="d-block w-100" style="width: 300px; height: 600px;"
+                        @click="showDiscountProducts">
                     <div class="carousel-caption d-none d-md-block">
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="../img/Promociones Banco1.png" 
-                    class="d-block w-100" style="width: 300px; height: 600px;">
+                    <img src="../img/Promociones Banco1.png" class="d-block w-100" style="width: 300px; height: 600px;">
                     <div class="carousel-caption d-none d-md-block">
                     </div>
                 </div>
@@ -136,7 +114,35 @@ const chunkedProducts = (() => {
     </div>
 </template>
 
-  
+<script setup>
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import { products } from "@/products.js";
+import { useRouter } from "vue-router";
+
+const cardsPerSlide = 3; // Número de tarjetas que se mostrarán por slide
+const router = useRouter();
+
+const chunkedProducts = (() => {
+    // Dividir los productos en grupos según el número de tarjetas por slide
+    const chunkSize = cardsPerSlide;
+    const productsCopy = [...products]; // Hacer una copia de los productos para no modificar el array original
+    const chunkedArray = [];
+
+    while (productsCopy.length > 0) {
+        chunkedArray.push(productsCopy.splice(0, chunkSize));
+    }
+
+    return chunkedArray;
+})();
+
+
+function showDiscountProducts() {
+  router.push('/Promocion');
+}
+
+
+</script>
 
 <style lang="">
 

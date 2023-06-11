@@ -1,70 +1,43 @@
 <template>
   <div>
-    
-
-    <h1>NEW ARRIVALS</h1>
-    <div class="filter-buttons">
-      <button
-        @click="
-          sortBy = 'price';
-          sortProducts();
-        "
-      >
-        Ordenar por precio
-      </button>
-      <button
-        @click="
-          sortBy = 'name';
-          sortProducts();
-        "
-      >
-        Ordenar por nombre
-      </button>
+    <div class="d-flex align-items-center justify-content-center">
+      <h1>Recién llegados</h1>
     </div>
-    <div class="search-container">
-      <input
-        v-show="showSearch"
-        v-model="searchQuery"
-        type="text"
-        placeholder="Buscar por nombre"
-        class="search-input"
-        @input="filterProducts"
-        ref="searchInput"
-      />
-      <button class="search-button" @click="toggleSearch()">
-        <i v-show="!showSearch" class="fa fa-search"></i>
-        <i v-show="showSearch" class="fa fa-times"></i>
-      </button>
+    <div class="d-flex justify-content-between">
+      <div class="filter-buttons d-flex align-items-center">
+        <button class="btn btn-outline-dark btn-sm btn-block -sm" @click="sortBy = 'price'; sortProducts();">
+          Ordenar por precio
+        </button>
+        <button class="btn btn-outline-dark btn-sm btn-block -sm " @click=" sortBy = 'name'; sortProducts(); ">
+          Ordenar por nombre
+        </button>
+      </div>
+      <div class="search-container d-flex align-items-center">
+        <input v-show=" showSearch " v-model=" searchQuery " type="text" placeholder="Buscar por nombre" class="search-input"
+          @input=" filterProducts " ref="searchInput" />
+        <button class="search-button" @click=" toggleSearch() ">
+          <i v-show=" !showSearch " class="fa fa-search"></i>
+          <i v-show=" showSearch " class="fa fa-times"></i>
+        </button>
+      </div>
     </div>
 
     <div class="image-container">
-      <div
-        v-for="product in filterProducts"
-        :key="product.id"
-        class="product-column"
-      >
-        <img :src="product.image" :alt="product.name" class="product-image" />
+      <div v-for=" product  in  displayedProducts " :key=" product.id " class="product-column">
+        <img :src=" product.image " :alt=" product.name " class="product-image" />
         <p>{{ product.name }}</p>
-        <p>Precio: {{ product.price }}</p>
+        <p>${{ product.price }}</p>
         <div class="quantity-selection">
-          <button
-            @click="product.cantidad = Math.max(1, (product.cantidad || 0) - 1)"
-          >
-            -
-          </button>
-          <span>{{ product.cantidad || 0 }}</span>
-          <button
-            @click="product.cantidad = Math.min(8, (product.cantidad || 0) + 1)"
-          >
-            +
-          </button>
+          <button class="btn btn-outline-dark btn-block m-1" @click=" decreaseQuantity(product) ">-</button>
+          <span class="m-1">{{ product.cantidad || 0 }}</span>
+          <button class="btn btn-outline-dark btn-block" @click=" increaseQuantity(product) ">+</button>
         </div>
-        <button @click="addToCart(product)">Agregar al carrito</button>
+        <button class="btn btn-outline-dark btn-block m-1 m-1" @click=" addToCart(product) ">Agregar al carrito</button>
       </div>
     </div>
 
     <!-- Agregado: Modal de detalle de producto -->
-    <div v-if="selectedProduct" class="product-modal">
+    <div v-if=" selectedProduct " class="product-modal">
       <div class="product-details">
         <h2>{{ selectedProduct.name }}</h2>
         <p>Precio: {{ selectedProduct.price }}</p>
@@ -76,75 +49,62 @@
   </div>
 </template>
   
-<script>
+<script setup>
 import { products } from "@/products.js";
 import Cart from "./Cart.vue";
 import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
+import { ref } from "vue"
 
-export default {
-  components: {
-    Cart,
-  },
-  data() {
-    return {
-      displayedProducts: [],
-      searchQuery: "",
-      sortBy: "",
-      selectedProduct: null, // Agregado: Producto seleccionado para mostrar en detalle
-      showSearch: false,
-      carrito: [], // Agregado: Array para almacenar los productos en el carrito
-    };
-  },
+const displayedProducts = ref([]);
+displayedProducts.value = shuffle(products);
+const searchQuery = ref("");
+const sortBy = ref("");
+const selectedProduct = ref(null);
+const showSearch = ref(false);
+const searchInput = ref(null)
 
-  created() {
-    this.displayedProducts = shuffle(products).slice(0, 9);
-    this.sortProducts();
-  },
-  methods: {
-    applyFilterProducts() {
-      const query = this.searchQuery.toLowerCase();
-      this.filteredProducts = this.displayedProducts.filter((product) =>
-        product.name.toLowerCase().includes(query)
-      );
-    },
-    sortProducts() {
-      if (this.sortBy === "price") {
-        this.displayedProducts.sort((a, b) => a.price - b.price);
-      } else if (this.sortBy === "name") {
-        this.displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
-      }
-    },
+function applyFilterProducts() {
+  const query = this.searchQuery.toLowerCase();
+  this.filteredProducts = this.displayedProducts.filter((product) =>
+    product.name.toLowerCase().includes(query)
+  );
+}
+function sortProducts() {
+  if (this.sortBy === "price") {
+    this.displayedProducts.sort((a, b) => a.price - b.price);
+  } else if (this.sortBy === "name") {
+    this.displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
+  }
+}
 
-    toggleSearch() {
-      this.showSearch = !this.showSearch;
-      if (this.showSearch) {
-        this.$nextTick(() => {
-          this.$refs.searchInput.focus();
-        });
-      } else {
-        this.searchQuery = "";
-      }
-    },
+function toggleSearch() {
+  showSearch.value = !showSearch.value;
+  if (showSearch.value) {
+    nextTick(() => {
+      searchInput.value.focus();
+    });
+  } else {
+    searchQuery.value = "";
+  }
+}
 
-    addToCart(product) {
-      const cartStore = useCartStore();
-      cartStore.addToCart(product);
-    },
-    removeFromCart(item) {
-      const cartStore = useCartStore();
-      cartStore.removeFromCart(item);
-    },
-  },
-  computed: {
-    filterProducts() {
-      const query = this.searchQuery.toLowerCase();
-      return this.displayedProducts.filter((product) =>
-        product.name.toLowerCase().includes(query)
-      );
-    },
-  },
-};
+function addToCart(product) {
+  const cartStore = useCartStore();
+  cartStore.addToCart(product);
+}
+
+function decreaseQuantity(product) {
+  product.cantidad = Math.max(1, (product.cantidad || 0) - 1);
+}
+
+function increaseQuantity(product) {
+  product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
+}
+
+
+
+
 </script>
   
 <style scoped>
@@ -161,6 +121,14 @@ export default {
   margin-right: 20px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centra horizontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  text-align: center;
+  /* Centra el texto */
 }
 
 .product-column:nth-child(3n + 3) {
@@ -206,5 +174,4 @@ export default {
   cursor: pointer;
   margin-left: 5px;
 }
-
 </style>

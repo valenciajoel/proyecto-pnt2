@@ -10,7 +10,7 @@ import Carrito from './components/Cart.vue'
 import Administrador from './components/Administrador.vue';
 import { createVfm } from 'vue-final-modal'
 import 'vue-final-modal/style.css'
-
+import Promocion from './components/Promocion.vue';
 
 const routes = [
     { path: '/', component:Home},
@@ -19,6 +19,7 @@ const routes = [
     { path: '/Productos', component:Productos},
     {path: '/Carrito', component:Carrito},
     { path: '/Administrador', component: Administrador},
+    { path: '/Promocion', component: Promocion},
 ]
 
 const router = createRouter({

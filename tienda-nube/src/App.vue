@@ -124,11 +124,17 @@ watch(() => store.esAdministrador, (newValue) => {
       <div class="footer-column">
         <h3>Social</h3>
         <p>Seguinos en:</p>
-        <div class="social-icons">
-          <i class="fa fa-facebook"></i>
-          <i class="fa fa-twitter"></i>
-          <i class="fa fa-instagram"></i>
-        </div>
+        <div class="social-media-icons">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/twitter-logo.png" alt="Twitter" />
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/facebook-logo.png" alt="Facebook" />
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/instagram-logo.png" alt="Instagram" />
+        </a>
+      </div>
       </div>
     </div>
   </footer>
