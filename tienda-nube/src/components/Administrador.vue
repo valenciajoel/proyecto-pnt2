@@ -1,84 +1,69 @@
 <template>
-  <Bar :data="data" />
-</template>
+    <Bar :data="data"   />
+  </template>
   
   <script setup>
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-} from "chart.js";
-import { Bar } from "vue-chartjs";
-import { products } from "../products";
-import { onMounted, ref } from "vue";
-import { GoogleSheets } from "../connectionWithGoogle";
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale
+  } from 'chart.js'
+  import { Bar } from 'vue-chartjs'
+  import {products} from '../products'
+  import{onMounted, ref} from "vue";
+  import { GoogleSheets } from '../connectionWithGoogle';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const date = { date: { month: 5, year: 2023 } };
-const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] });
+  const date = {date:{month:5,year:2023}}
+  const data = ref({labels:["","",""],datasets:[{data:[0,0,0]}]})
 
-onMounted(async () => {
-  let aux = await GoogleSheets.obtenerTopArticulos(date);
-  console.log(aux);
+  onMounted(async()=>{
 
-  const articulos = aux.response.map((item) => {
-    const producto = products.find((producto) => producto.id === item.art);
-    return producto ? producto.name : null;
-  });
-  console.log(articulos);
+    let aux = await  GoogleSheets.obtenerTopArticulos(date)
+    console.log(aux);
 
-  // Obtener cantidades por separado
-  const cantidades = aux.response.map((item) => item.cant);
-  console.log(cantidades);
+    const articulos = aux.response.map(item => {
+  const producto = products.find(producto => producto.id === item.art);
+  return producto ? producto.name : null;
+});
+console.log(articulos);
 
-  data.value = {
-    labels: articulos,
-    datasets: [
-      {
-        data: cantidades,
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-        ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
-        borderWidth: 1,
-      },
+    // Obtener cantidades por separado
+    const cantidades = aux.response.map(item => item.cant);
+    console.log(cantidades);
+    
+    data.value = {labels:articulos,datasets:[{data:cantidades,backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
     ],
-    backgroundColor: "rgba(75, 192, 192, 0.6)",
-    borderColor: "rgba(75, 192, 192, 1)", // Color del borde de las barras
-    borderWidth: 1,
-    options: {
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'
+    ], borderWidth: 1}],backgroundColor: 'rgba(75, 192, 192, 0.6)', 
+      borderColor: 'rgba(75, 192, 192, 1)', // Color del borde de las barras
+      borderWidth: 1, options: {
       scales: {
         y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  };
-});
-</script>
+          beginAtZero: true
+        }
+      }
+    },}
+  })
+
+
+  </script>
