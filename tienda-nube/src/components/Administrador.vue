@@ -1,23 +1,23 @@
 <template>
   <div>
     <div>
-    <Bar :data="data" />
-  </div>
+      <Bar :data="data" />
+    </div>
 
-  <div>
-    <Bar :data="dataMenosVendidos" />
-  </div>
+    <div>
+      <Bar :data="dataMenosVendidos" />
+    </div>
 
-  <div>
-    <Bar :data="dataMesMenosVentas" />
-  </div>
+    <div>
+      <Bar :data="dataMesMasVentas" />
+    </div>
 
-  <div>
-    <Bar :data="dataMesMasVentas" />
-  </div>
-  </div>
-  
+    <div>
+      <Bar :data="dataMesMenosVentas" />
+    </div>
 
+
+  </div>
 </template>
   
 <script setup>
@@ -47,7 +47,7 @@ const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0
 onMounted(async () => {
 
   let topArticulos = await GoogleSheets.obtenerTopArticulos(date)
-  let topMeses = await GoogleSheets.obtenerTopArticulos({date: {year:2023}});
+
   //trae los nombres de los productos
   const articulos = topArticulos.response.map(item => {
     const producto = products.find(producto => producto.id === item.art);
@@ -86,12 +86,13 @@ onMounted(async () => {
     },
   }
 
-  const topArticulosMenosVendidios = topArticulos.sort((a, b) => a.cant - b.cant);
-  const cantidadesMenosVendidos = topArticulosMenosVendidios.response.map(item => item.cant);
-  const articulosMenosVendidos = topArticulosMenosVendidios.response.map(item => {
-    const producto = products.find(producto => producto.id === item.art);
-    return producto ? producto.name : null;
-  });
+  const topArticulosMenosVendidos = topArticulos.response.sort((a, b) => a.cant - b.cant)
+  const articulosMenosVendidos = topArticulosMenosVendidos.map(item => {
+    const producto = products.find(producto => producto.id === item.art)
+    return producto ? producto.name : null
+  })
+  const cantidadesMenosVendidos = topArticulosMenosVendidos.map(item => item.cant)
+
 
   dataMenosVendidos.value = {
     labels: articulosMenosVendidos, datasets: [{
@@ -122,38 +123,17 @@ onMounted(async () => {
     },
   }
 
-  dataMesMenosVentas.value = {
-    labels: articulos, datasets: [{
-      data: cantidades, backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 250,
-    }], options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    },
-  }
-
+  let topMeses = await GoogleSheets.obtenerTopArticulos({ date: { year: 2023 } });
+  const productosMesMasVentas = topMeses.response.map(item => item.mes);
+  const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
+  console.log(topMeses)
+  console.log(cantidadesMesMasVentas)
+  
   dataMesMasVentas.value = {
-    labels: articulos, datasets: [{
-      data: cantidades, backgroundColor: [
+    labels: productosMesMasVentas,
+    datasets: [{
+      data: cantidadesMesMasVentas,
+      backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
         'rgba(255, 205, 86, 0.2)',
@@ -170,15 +150,43 @@ onMounted(async () => {
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 150,
-    }], options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    },
-  }
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  const productosMesMenosVentas = topMeses.response.map(item => item.mes);
+  const cantidadesMesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
+
+
+
+  dataMesMenosVentas.value = {
+    labels: productosMesMenosVentas,
+    datasets: [{
+      data: cantidadesMesMenosVentas,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+
 
 
 })
