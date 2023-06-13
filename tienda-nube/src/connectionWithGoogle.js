@@ -44,5 +44,16 @@ export const GoogleSheets = {
         if (response.ok) {
             return await response.json();
         }
+    },
+    obtenerTopMeses: async (date)=>{
+        let url = GoogleSheets.urlGoogle + "?action=obtenerMesesConMasVentas" ;
+        const response = await fetch(url,{
+            method: 'POST',
+            body: JSON.stringify(date)
+        })
+        if (response.ok) {
+            return await response.json();
+        }
+    
     }
 }

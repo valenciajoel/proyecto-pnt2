@@ -46,16 +46,16 @@ const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0
 
 onMounted(async () => {
 
-  let aux = await GoogleSheets.obtenerTopArticulos(date)
-
+  let topArticulos = await GoogleSheets.obtenerTopArticulos(date)
+  let topMeses = await GoogleSheets.obtenerTopArticulos({date: {year:2023}});
   //trae los nombres de los productos
-  const articulos = aux.response.map(item => {
+  const articulos = topArticulos.response.map(item => {
     const producto = products.find(producto => producto.id === item.art);
     return producto ? producto.name : null;
   });
 
   // Obtener cantidades por separado
-  const cantidades = aux.response.map(item => item.cant);
+  const cantidades = topArticulos.response.map(item => item.cant);
 
   data.value = {
     labels: articulos, datasets: [{
@@ -86,9 +86,9 @@ onMounted(async () => {
     },
   }
 
-  const auxMenosVendidios = aux.sort((a, b) => b.cant -a.cant);
-  const cantidadesMenosVendidos = auxMenosVendidios.response.map(item => item.cant);
-  const articulosMenosVendidos = auxMenosVendidios.response.map(item => {
+  const topArticulosMenosVendidios = topArticulos.sort((a, b) => a.cant - b.cant);
+  const cantidadesMenosVendidos = topArticulosMenosVendidios.response.map(item => item.cant);
+  const articulosMenosVendidos = topArticulosMenosVendidios.response.map(item => {
     const producto = products.find(producto => producto.id === item.art);
     return producto ? producto.name : null;
   });
