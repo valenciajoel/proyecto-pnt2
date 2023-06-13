@@ -136,8 +136,8 @@ function getCompra(){
   return compra;
 }
 function finish() {
-  openResume()
   GoogleSheets.enviarCompra(getCompra())
+  openResume()
   cartStore.clearCart()
   
 }
