@@ -1,22 +1,44 @@
 <template>
   <div>
-    <div>
-      <Bar :data="data" />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="chart-title text-center">Productos mas vendidos</h3>
+          <div class="chart-wrapper">
+            <Bar :data="data" class="custom-chart" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="chart-title text-center">Productos menos vendidos</h3>
+          <div class="chart-wrapper">
+            <Bar :data="dataMenosVendidos" class="custom-chart" />
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div>
-      <Bar :data="dataMenosVendidos" />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="chart-title text-center">Mes con mas ventas</h3>
+          <div class="chart-wrapper">
+            <Bar :data="dataMesMasVentas" class="custom-chart" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="chart-title text-center">Mes con menos ventas</h3>
+          <div class="chart-wrapper">
+            <Bar :data="dataMesMenosVentas" class="custom-chart" />
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div>
-      <Bar :data="dataMesMasVentas" />
-    </div>
-
-    <div>
-      <Bar :data="dataMesMenosVentas" />
-    </div>
-
-
   </div>
 </template>
   
@@ -76,7 +98,7 @@ onMounted(async () => {
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 250,
+      ], borderWidth: 1, barThickness: 100,pointRadius: 3,
     }], options: {
       scales: {
         y: {
@@ -96,7 +118,7 @@ onMounted(async () => {
 
   dataMenosVendidos.value = {
     labels: articulosMenosVendidos, datasets: [{
-      data: cantidadesMenosVendidos, backgroundColor: [
+      data: cantidadesMenosVendidos,  backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
         'rgba(255, 205, 86, 0.2)',
@@ -113,7 +135,7 @@ onMounted(async () => {
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 250,
+      ], borderWidth: 1, barThickness: 100,
     }], options: {
       scales: {
         y: {
@@ -128,7 +150,7 @@ onMounted(async () => {
   const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
   console.log(topMeses)
   console.log(cantidadesMesMasVentas)
-  
+
   dataMesMasVentas.value = {
     labels: productosMesMasVentas,
     datasets: [{
@@ -151,13 +173,12 @@ onMounted(async () => {
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
       ],
-      borderWidth: 1
+      borderWidth: 1,barThickness: 100,
     }]
   };
 
   const productosMesMenosVentas = topMeses.response.map(item => item.mes);
   const cantidadesMesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
-
 
 
   dataMesMenosVentas.value = {
@@ -182,14 +203,33 @@ onMounted(async () => {
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
       ],
-      borderWidth: 1
+      borderWidth: 1, barThickness: 100,
     }]
   };
-
-
-
 
 })
 
 
 </script>
+
+<style scoped>
+.chart-container {
+  margin-bottom: 20px;
+  margin-block: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.chart-title {
+  margin-bottom: 10px;
+}
+
+.chart-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.custom-chart {
+  width: 100%;
+}
+</style>
