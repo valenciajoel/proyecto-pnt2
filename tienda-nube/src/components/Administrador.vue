@@ -86,9 +86,16 @@ onMounted(async () => {
     },
   }
 
+  const auxMenosVendidios = aux.sort((a, b) => b.cant -a.cant);
+  const cantidadesMenosVendidos = auxMenosVendidios.response.map(item => item.cant);
+  const articulosMenosVendidos = auxMenosVendidios.response.map(item => {
+    const producto = products.find(producto => producto.id === item.art);
+    return producto ? producto.name : null;
+  });
+
   dataMenosVendidos.value = {
-    labels: articulos, datasets: [{
-      data: cantidades, backgroundColor: [
+    labels: articulosMenosVendidos, datasets: [{
+      data: cantidadesMenosVendidos, backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
         'rgba(255, 205, 86, 0.2)',
