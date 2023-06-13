@@ -39,7 +39,9 @@ function increaseQuantity(producto) {
   producto.cantidad = Math.min(8, (producto.cantidad || 0) + 1);
 }
 function agregarAlCarrito(producto) {
-  cartStore.addToCart(producto);
+  const precioDescuento = calcularPrecioDescuento(producto);
+  const productoModificado = { ...producto, price: precioDescuento }; // Crear una copia del producto con el precio modificado
+  cartStore.addToCart(productoModificado);
 }
 
 function calcularPrecioDescuento(producto) {
