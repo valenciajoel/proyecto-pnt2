@@ -98,7 +98,7 @@ onMounted(async () => {
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 100,pointRadius: 3,
+      ], borderWidth: 1, barThickness: 20,pointRadius: 3,
     }], options: {
       scales: {
         y: {
@@ -135,7 +135,7 @@ onMounted(async () => {
         'rgb(54, 162, 235)',
         'rgb(153, 102, 255)',
         'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 100,
+      ], borderWidth: 1, barThickness: 20,
     }], options: {
       scales: {
         y: {
