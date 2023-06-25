@@ -99,13 +99,16 @@ onMounted(async () =>{
       borderWidth: 1,barThickness: 25,
     }]
   };
+  const mesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
+  const labelMesMenosVentas = mesMenosVentas.map(item =>{
+    return item.mes
+  })
+  const cantidadesMesMenosVentas = mesMenosVentas.map(item =>{return item.total})
 
-  const productosMesMenosVentas = topMeses.response.map(item => item.mes);
-  const cantidadesMesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
 
 
   dataMesMenosVentas.value = {
-    labels: productosMesMenosVentas,
+    labels: labelMesMenosVentas,
     datasets: [{
       data: cantidadesMesMenosVentas,
       backgroundColor: [
