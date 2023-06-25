@@ -13,8 +13,8 @@
         </button>
       </div>
       <div class="search-container d-flex align-items-center">
-        <input v-show=" showSearch " v-model=" searchQuery " type="text" placeholder="Buscar por nombre" class="search-input"
-          @input=" filterProducts " ref="searchInput" />
+       <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input"
+    @input="applyFilterProducts" ref="searchInput" />
         <button class="search-button" @click=" toggleSearch() ">
           <i v-show=" !showSearch " class="fa fa-search"></i>
           <i v-show=" showSearch " class="fa fa-times"></i>
@@ -65,31 +65,31 @@ const showSearch = ref(false);
 const searchInput = ref(null)
 
 function applyFilterProducts() {
-  const query = this.searchQuery.toLowerCase();
-  this.filteredProducts = this.displayedProducts.filter((product) =>
+  const query = searchQuery.value.toLowerCase();
+  displayedProducts.value = products.filter((product) =>
     product.name.toLowerCase().includes(query)
   );
 }
 function sortProducts() {
-  if (this.sortBy === "price") {
-    this.displayedProducts.sort((a, b) => a.price - b.price);
-  } else if (this.sortBy === "name") {
-    this.displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
+  if (sortBy.value === "price") {
+    displayedProducts.value.sort((a, b) => a.price - b.price);
+  } else if (sortBy.value === "name") {
+    displayedProducts.value.sort((a, b) => a.name.localeCompare(b.name));
   }
 }
 
-function toggleSearch() {
-  showSearch.value = !showSearch.value;
-  if (showSearch.value) {
-    nextTick(() => {
-      searchInput.value.focus();
-    });
-  } else {
-    searchQuery.value = "";
-        applyFilterProducts();
-
+ function toggleSearch() {
+    showSearch.value = !showSearch.value;
+    if (showSearch.value) {
+      nextTick(() => {
+        searchInput.value.focus();
+      });
+    } else {
+      searchQuery.value = "";
+      applyFilterProducts();
+    }
   }
-}
+
 
 function addToCart(product) {
   const cartStore = useCartStore();
