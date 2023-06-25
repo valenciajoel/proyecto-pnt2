@@ -54,7 +54,7 @@ import { products } from "@/products.js";
 import Cart from "./Cart.vue";
 import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
-import { ref } from "vue"
+import { ref, nextTick } from "vue"
 
 const displayedProducts = ref([]);
 displayedProducts.value = shuffle(products);
@@ -86,6 +86,8 @@ function toggleSearch() {
     });
   } else {
     searchQuery.value = "";
+        applyFilterProducts();
+
   }
 }
 
@@ -101,6 +103,8 @@ function decreaseQuantity(product) {
 function increaseQuantity(product) {
   product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
 }
+
+
 
 
 
