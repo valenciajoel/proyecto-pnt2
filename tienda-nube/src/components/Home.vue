@@ -18,15 +18,15 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="../img/DALL·E 2023-05-22 22.55.17 - a photo catalog of cloths with model men.png"
-                            class="d-block w-100" style="width: 300px; height: 600px;">
+                        <img src="../img/1.jpg"
+                            class="d-block w-100" style="width: 300px; height: 500px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>First slide label</h5>
                             <p>Some representative placeholder content for the first slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="../img/DALL·E 2023-05-22 22.55.30 - a photo catalog of cloths with model men.png"
+                        <img src="../img/2.jpg"
                             class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Second slide label</h5>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="../img/DALL·E 2023-05-22 22.55.41 - a photo catalog of cloths with model men.png"
+                        <img src="../img/3.jpg"
                             class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Third slide label</h5>
@@ -145,6 +145,11 @@ function showDiscountProducts() {
 </script>
 
 <style scoped>
+.carousel-image {
+  max-width: 100%;
+  height: 100px;
+  /* Establece el tamaño máximo para las imágenes del carrusel */
+}
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(100%); /* Invertir el color de las flechas a negro */
