@@ -26,7 +26,17 @@
       <div v-for=" product  in  displayedProducts " :key=" product.id " class="product-column">
         <img :src=" product.image " :alt=" product.name " class="product-image" />
         <p>{{ product.name }}</p>
-        <p>${{ product.price }}</p>
+        <div class="price-container">
+          <p v-if="product.discount > 0" class="original-price">
+            <del>${{ product.price }}</del>
+          </p>
+          <p v-if="product.discount > 0" class="discounted-price">
+            ${{ calcularPrecioDescuento(product) }}
+          </p>
+          <p v-if="product.discount === 0">
+            ${{ product.price }}
+          </p>
+        </div>
         <div class="quantity-selection">
           <button class="btn btn-outline-dark btn-block m-1" @click=" decreaseQuantity(product) ">-</button>
           <span class="m-1">{{ product.cantidad || 0 }}</span>
@@ -104,8 +114,9 @@ function increaseQuantity(product) {
   product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
 }
 
-
-
+function calcularPrecioDescuento(producto) {
+  return producto.price - (producto.price * producto.discount) / 100;
+}
 
 
 
@@ -178,4 +189,21 @@ function increaseQuantity(product) {
   cursor: pointer;
   margin-left: 5px;
 }
+
+.price-container {
+  display: flex;
+  justify-content: center; /* Centrar los precios */
+  margin-bottom: 10px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+
+
+.discounted-price {
+  color: red;
+}
+
 </style>
