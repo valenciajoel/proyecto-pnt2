@@ -1,6 +1,6 @@
 
 export const GoogleSheets = {
-    urlGoogle : "https://script.google.com/macros/s/AKfycbzzQ4nkS9oyQoGwC6pouK4H4TF2z8IiiTVQTeyj8zkN5obT5l1LMpumEPXBZ23EFzbANA/exec",
+    urlGoogle : "https://script.google.com/macros/s/AKfycbzfyk5aDqnHURLnDt3-ryCigEHJcQFOOYdRbmcmmIFHEehaRFqEbAssrme7pWFoIEJZrA/exec",
     enviarCompra : async (data) =>{
         let url = GoogleSheets.urlGoogle + "?action=crearCompra";
         const response = await fetch(url,{
@@ -11,8 +11,10 @@ export const GoogleSheets = {
         if (response.ok) {
             const responseData = await response.json();
             console.log(responseData);
-        } else
+        } else{
             console.error('Error', response.status);
+        }
+            
     },
     obtenerProductos : async (idCompra) =>{
         let url = GoogleSheets.urlGoogle + "?action=obtenerProductos" ;
@@ -23,8 +25,11 @@ export const GoogleSheets = {
         if (response.ok) {
             const responseData = await response.json();
             console.log(responseData);
-        } else
+        } else{
             console.error('Error', response.status);
+        }
+            
+    
     },
     obtenerTopArticulos: async (date)=>{
         let url = GoogleSheets.urlGoogle + "?action=obtenerArtMasVendidoEnMes" ;
@@ -34,7 +39,10 @@ export const GoogleSheets = {
         })
         if (response.ok) {
             return await response.json();
+        }else{
+            console.error('Error', response.status);
         }
+        
     },
     obtenerTopMeses: async (date)=>{
         let url = GoogleSheets.urlGoogle + "?action=obtenerMesesConMasVentas" ;
@@ -44,7 +52,10 @@ export const GoogleSheets = {
         })
         if (response.ok) {
             return await response.json();
+        }else{
+            console.error('Error', response.status);
         }
+        
     
     }
 }

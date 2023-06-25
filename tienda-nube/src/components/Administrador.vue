@@ -67,6 +67,73 @@ const dataMenosVendidos = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 
 const dataMesMenosVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 
+onMounted(async () =>{
+  let topMeses = await GoogleSheets.obtenerTopMeses(year);
+  const productosMesMasVentas = topMeses.response.map(item => item.mes);
+  const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
+  console.log(topMeses)
+  console.log(cantidadesMesMasVentas)
+
+  dataMesMasVentas.value = {
+    labels: productosMesMasVentas,
+    datasets: [{
+      data: cantidadesMesMasVentas,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1,barThickness: 25,
+    }]
+  };
+
+  const productosMesMenosVentas = topMeses.response.map(item => item.mes);
+  const cantidadesMesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
+
+
+  dataMesMenosVentas.value = {
+    labels: productosMesMenosVentas,
+    datasets: [{
+      data: cantidadesMesMenosVentas,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1, barThickness: 25,
+    }]
+  };
+
+})
+
+
+
 onMounted(async () => {
   let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
 
@@ -143,72 +210,8 @@ onMounted(async () => {
       }
     },
   }
-
-  let topMeses = await GoogleSheets.obtenerTopArticulos({ date: { year: 2023 } });
-  const productosMesMasVentas = topMeses.response.map(item => item.mes);
-  const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
-  console.log(topMeses)
-  console.log(cantidadesMesMasVentas)
-
-  dataMesMasVentas.value = {
-    labels: productosMesMasVentas,
-    datasets: [{
-      data: cantidadesMesMasVentas,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
-      borderWidth: 1,barThickness: 25,
-    }]
-  };
-
-  const productosMesMenosVentas = topMeses.response.map(item => item.mes);
-  const cantidadesMesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
-
-
-  dataMesMenosVentas.value = {
-    labels: productosMesMenosVentas,
-    datasets: [{
-      data: cantidadesMesMenosVentas,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
-      borderWidth: 1, barThickness: 25,
-    }]
-  };
-
 })
-
-
+  
 </script>
 
 <style scoped>
