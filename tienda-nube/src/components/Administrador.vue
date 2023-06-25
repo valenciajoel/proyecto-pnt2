@@ -59,13 +59,7 @@ import { GoogleSheets } from '../connectionWithGoogle';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const date = { date: { month: 5, year: 2023 } };
 const year = {date:{year:2023}}
-const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] });
-const dataMenosVendidos = ref({
-  labels: ["", "", ""],
-  datasets: [{ data: [0, 0, 0] }],
-});
 
 const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 const date = { date: { month: 5, year: 2023 } }
@@ -75,13 +69,7 @@ const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0
 
 onMounted(async () => {
   let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
-  let topMeses = await GoogleSheets.obtenerTopMeses(year)
-  const meses = topMeses.response.map((item) => {
-    return item.mes 
-  })
-  const totalMes = topMeses.response.map((item) => {
-    return item.total
-  })
+
   const articulos = topArticulos.response.map((item) => {
     const producto = products.find((producto) => producto.id === item.art);
     return producto ? producto.name : null;
