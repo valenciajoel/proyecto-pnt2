@@ -144,6 +144,14 @@ function showDiscountProducts() {
 
 </script>
 
-<style lang="">
+<style scoped>
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%); /* Invertir el color de las flechas a negro */
+}
 
+.carousel-control-prev,
+.carousel-control-next {
+  color: black; /* Establecer el color de las flechas a negro */
+}
 </style>
