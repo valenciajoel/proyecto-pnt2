@@ -1,6 +1,6 @@
 
 export const GoogleSheets = {
-    urlGoogle : "https://script.google.com/macros/s/AKfycbw31X-MAaZjMoKZUkopXw8FZeEyg7Nkrf1x0hnFYrsoSJffjPAeHM1mWwb7Mwm1zcXGiQ/exec",
+    urlGoogle : "https://script.google.com/macros/s/AKfycbzzQ4nkS9oyQoGwC6pouK4H4TF2z8IiiTVQTeyj8zkN5obT5l1LMpumEPXBZ23EFzbANA/exec",
     enviarCompra : async (data) =>{
         let url = GoogleSheets.urlGoogle + "?action=crearCompra";
         const response = await fetch(url,{
@@ -13,15 +13,6 @@ export const GoogleSheets = {
             console.log(responseData);
         } else
             console.error('Error', response.status);
-    },
-    getDataProducts : async () =>{
-        const response = await fetch(GoogleSheets.urlGoogle,{
-            method: 'GET'
-        })
-
-        if (response.ok) {
-            return await response.json();
-        }
     },
     obtenerProductos : async (idCompra) =>{
         let url = GoogleSheets.urlGoogle + "?action=obtenerProductos" ;

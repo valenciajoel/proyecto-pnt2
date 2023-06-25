@@ -32,6 +32,7 @@ ChartJS.register(
 );
 
 const date = { date: { month: 5, year: 2023 } };
+const year = {date:{year:2023}}
 const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] });
 const dataMenosVendidos = ref({
   labels: ["", "", ""],
@@ -95,17 +96,22 @@ const optionsMesMasVentas = ref({
 });
 
 onMounted(async () => {
-  let aux = await GoogleSheets.obtenerTopArticulos(date);
-  console.log(aux);
-
-  const articulos = aux.response.map((item) => {
+  let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
+  let topMeses = await GoogleSheets.obtenerTopMeses(year)
+  const meses = topMeses.response.map((item) => {
+    return item.mes 
+  })
+  const totalMes = topMeses.response.map((item) => {
+    return item.total
+  })
+  const articulos = topArticulos.response.map((item) => {
     const producto = products.find((producto) => producto.id === item.art);
     return producto ? producto.name : null;
   });
   console.log(articulos);
 
   // Obtener cantidades por separado
-  const cantidades = aux.response.map((item) => item.cant);
+  const cantidades = topArticulos.response.map((item) => item.cant);
   console.log(cantidades);
 
   data.value = {
