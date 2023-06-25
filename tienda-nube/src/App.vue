@@ -3,22 +3,22 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useRouter } from "vue-router";
 import { watch } from "vue";
 import { ref } from "vue";
-import { useAuthStore } from './store';
-import { ModalsContainer, useModal } from 'vue-final-modal'
-import Modal from './Modal.vue'
+import { useAuthStore } from "./store";
+import { ModalsContainer, useModal } from "vue-final-modal";
+import Modal from "./Modal.vue";
 import Login from "./components/Login.vue";
 const { open, close } = useModal({
   component: Modal,
   attrs: {
-    title: 'Inicie Sesion',
+    title: "Inicie Sesion",
     onConfirm() {
-      close()
+      close();
     },
   },
   slots: {
     default: Login,
   },
-})
+});
 
 const router = useRouter();
 
@@ -50,42 +50,68 @@ const mostrarBotonAdministrador = ref(false);
 
 const store = useAuthStore();
 
-watch(() => store.esAdministrador, (newValue) => {
-  mostrarBotonAdministrador.value = newValue;
-});
-
-
-
+watch(
+  () => store.esAdministrador,
+  (newValue) => {
+    mostrarBotonAdministrador.value = newValue;
+  }
+);
 </script>
 
 
 
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" @click="home">
-        <img src="./components/FLAB_Icon.jpg" alt="Logo" width="40" height="20" />
+        <img
+          src="./components/FLAB_Icon.jpg"
+          alt="Logo"
+          width="40"
+          height="20"
+        />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel"
+      >
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#" @click="home">Home</a>
+              <a class="nav-link" aria-current="page" href="#" @click="home"
+                >Home</a
+              >
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" @click="catalogo" href="#">Catalogo</a>
+              <a class="nav-link" @click="catalogo" href="#">Catálogo</a>
             </li>
 
             <li class="nav-item">
@@ -93,14 +119,22 @@ watch(() => store.esAdministrador, (newValue) => {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" @click="carrito" href="#">Carrito de compras</a>
+              <a class="nav-link" @click="carrito" href="#"
+                >Carrito de compras</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="open" href="#">Acceder</a>
               <ModalsContainer />
             </li>
             <li class="nav-item">
-              <a class="nav-link" v-if="mostrarBotonAdministrador" @click="administrador" href="#">Administrador</a>
+              <a
+                class="nav-link"
+                v-if="mostrarBotonAdministrador"
+                @click="administrador"
+                href="#"
+                >Administrador</a
+              >
             </li>
           </ul>
         </div>
@@ -126,16 +160,28 @@ watch(() => store.esAdministrador, (newValue) => {
         <h3>Social</h3>
         <p>Seguinos en:</p>
         <div class="social-media-icons">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/twitter-logo.png" alt="Twitter" />
-        </a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/facebook-logo.png" alt="Facebook" />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/instagram-logo.png" alt="Instagram" />
-        </a>
-      </div>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
