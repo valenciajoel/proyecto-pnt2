@@ -99,7 +99,7 @@ import axios from 'axios';
 const mostrarCartelRegistro = ref(false);
 const mostrarMensajeRegistroExitoso = ref();
 const store = useAuthStore();
-const historialCompras = ref([]);
+
 
 const registro = ref({
   nombre: '',
@@ -112,11 +112,12 @@ const registro = ref({
 });
 
 
-
+//Muestra el cartel para registrase
 function registrarse() {
   mostrarCartelRegistro.value = true;
 }
 
+//Cierra el cartel de registro
 function cerrarCartelRegistro() {
   mostrarCartelRegistro.value = false;
 }
@@ -130,9 +131,7 @@ const datosInicio = ref({
 function iniciarSesion() {
   store.iniciarSesion(datosInicio);
 }
-function agregarCompraHistorial(compra) {
-  historialCompras.value.push(compra);
-}
+
 
 onMounted(async () => {
   const respuesta = await axios.get(

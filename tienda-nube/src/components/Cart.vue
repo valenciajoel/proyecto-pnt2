@@ -49,6 +49,12 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import Modal from '../Modal.vue'
 import Login from "./Login.vue";
 import Resume from "./Resume.vue";
+
+const cartStore = useCartStore();
+const userStore = useAuthStore();
+const cart = cartStore.cart;
+
+//Muestra el cartel de inicio de sesion
 async function openModal (title,comp) {
   const {open,close} = useModal({
     component: Modal,
@@ -64,6 +70,8 @@ async function openModal (title,comp) {
   })
   open()
 }
+
+//Muestra el cartel de resumen
 async function openResume () {
   const {open,close} = useModal({
     component: Resume,
@@ -81,10 +89,8 @@ async function openResume () {
   open()
 }
 
-const cartStore = useCartStore();
-const userStore = useAuthStore();
-const cart = cartStore.cart;
-const cartItemsCount = cartStore.cartItemsCount;
+
+
 
 
 function removeFromCart(item) {

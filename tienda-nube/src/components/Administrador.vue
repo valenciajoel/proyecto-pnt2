@@ -60,22 +60,23 @@ import { GoogleSheets } from '../connectionWithGoogle';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const year = {date:{year:2023}}
-
 const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 const date = { date: { month: 5, year: 2023 } }
 const dataMenosVendidos = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 const dataMesMenosVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
 
+// Grafico de Barras mes con mas y menos ventas
 onMounted(async () =>{
+
+  //Obtiene los datos de GoogleSheets
   let topMeses = await GoogleSheets.obtenerTopMeses(year);
-  const productosMesMasVentas = topMeses.response.map(item => item.mes);
+  const mesesMasVentas = topMeses.response.map(item => item.mes);
   const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
-  console.log(topMeses)
-  console.log(cantidadesMesMasVentas)
+  
 
   dataMesMasVentas.value = {
-    labels: productosMesMasVentas,
+    labels: mesesMasVentas,
     datasets: [{
       data: cantidadesMesMasVentas,
       backgroundColor: [
@@ -99,12 +100,12 @@ onMounted(async () =>{
       borderWidth: 1,barThickness: 25,
     }]
   };
+
   const mesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
   const labelMesMenosVentas = mesMenosVentas.map(item =>{
     return item.mes
   })
   const cantidadesMesMenosVentas = mesMenosVentas.map(item =>{return item.total})
-
 
   dataMesMenosVentas.value = {
     labels: labelMesMenosVentas,
@@ -135,16 +136,15 @@ onMounted(async () =>{
 })
 
 
-
+// Grafico de Barras productos mas y menos vendidos
 onMounted(async () => {
-  let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
 
+ //Obtiene los datos de GoogleSheets
+  let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
   const articulos = topArticulos.response.map((item) => {
     const producto = products.find((producto) => producto.id === item.art);
     return producto ? producto.name : null;
   });
-
-  // Obtener cantidades por separado
   const cantidades = topArticulos.response.map(item => item.cant);
 
   data.value = {

@@ -1,5 +1,4 @@
 
-
 <template>
     <div class="container">
         <div class="row">
@@ -18,24 +17,18 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="../img/1.jpg"
-                            class="d-block w-100" style="width: 300px; height: 600px;">
+                        <img src="../img/1.jpg" class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
-                    
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="../img/2.jpg"
-                            class="d-block w-100" style="width: 300px; height: 600px;">
+                        <img src="../img/2.jpg" class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
-                           
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="../img/3.jpg"
-                            class="d-block w-100" style="width: 300px; height: 600px;">
+                        <img src="../img/3.jpg" class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">
-                            
                         </div>
                     </div>
                 </div>
@@ -117,25 +110,12 @@ import 'bootstrap/dist/js/bootstrap.js';
 import { products } from "@/products.js";
 import { useRouter } from "vue-router";
 
-const cardsPerSlide = 3; // Número de tarjetas que se mostrarán por slide
+
 const router = useRouter();
 
-const chunkedProducts = (() => {
-    // Dividir los productos en grupos según el número de tarjetas por slide
-    const chunkSize = cardsPerSlide;
-    const productsCopy = [...products]; // Hacer una copia de los productos para no modificar el array original
-    const chunkedArray = [];
-
-    while (productsCopy.length > 0) {
-        chunkedArray.push(productsCopy.splice(0, chunkSize));
-    }
-
-    return chunkedArray;
-})();
-
-
+//Abre la vista de Promociones
 function showDiscountProducts() {
-  router.push('/Promocion');
+    router.push('/Promocion');
 }
 
 
@@ -143,25 +123,29 @@ function showDiscountProducts() {
 
 <style scoped>
 .carousel-image {
-  max-width: 100%;
-  height: 100px;
-  /* Establece el tamaño máximo para las imágenes del carrusel */
+    max-width: 100%;
+    height: 100px;
+    /* Establece el tamaño máximo para las imágenes del carrusel */
 }
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(100%); /* Invertir el color de las flechas a negro */
+    filter: invert(100%);
+    /* Invertir el color de las flechas a negro */
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-  color: black; /* Establecer el color de las flechas a negro */
+    color: black;
+    /* Establecer el color de las flechas a negro */
 }
+
 .carousel-indicators button {
-  background-color: black;
-  border: 1px solid black;
+    background-color: black;
+    border: 1px solid black;
 }
 
 .carousel-indicators .active {
-  background-color: black;
+    background-color: black;
 }
 </style>

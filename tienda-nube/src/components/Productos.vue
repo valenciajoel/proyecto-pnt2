@@ -8,23 +8,23 @@
         <button class="btn btn-outline-dark btn-sm btn-block -sm" @click="sortBy = 'price'; sortProducts();">
           Ordenar por precio
         </button>
-        <button class="btn btn-outline-dark btn-sm btn-block -sm " @click=" sortBy = 'name'; sortProducts(); ">
+        <button class="btn btn-outline-dark btn-sm btn-block -sm " @click=" sortBy = 'name'; sortProducts();">
           Ordenar por nombre
         </button>
       </div>
       <div class="search-container d-flex align-items-center">
-       <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input"
-    @input="applyFilterProducts" ref="searchInput" />
-        <button class="search-button" @click=" toggleSearch() ">
-          <i v-show=" !showSearch " class="fa fa-search"></i>
-          <i v-show=" showSearch " class="fa fa-times"></i>
+        <input v-show="showSearch" v-model="searchQuery" type="text" placeholder="Buscar por nombre" class="search-input"
+          @input="applyFilterProducts" ref="searchInput" />
+        <button class="search-button" @click=" toggleSearch()">
+          <i v-show="!showSearch" class="fa fa-search"></i>
+          <i v-show="showSearch" class="fa fa-times"></i>
         </button>
       </div>
     </div>
 
     <div class="image-container">
-      <div v-for=" product  in  displayedProducts " :key=" product.id " class="product-column">
-        <img :src=" product.image " :alt=" product.name " class="product-image" />
+      <div v-for=" product  in  displayedProducts " :key="product.id" class="product-column">
+        <img :src="product.image" :alt="product.name" class="product-image" />
         <p>{{ product.name }}</p>
         <div class="price-container">
           <p v-if="product.discount > 0" class="original-price">
@@ -38,21 +38,21 @@
           </p>
         </div>
         <div class="quantity-selection">
-          <button class="btn btn-outline-dark btn-block m-1" @click=" decreaseQuantity(product) ">-</button>
+          <button class="btn btn-outline-dark btn-block m-1" @click=" decreaseQuantity(product)">-</button>
           <span class="m-1">{{ product.cantidad || 0 }}</span>
-          <button class="btn btn-outline-dark btn-block" @click=" increaseQuantity(product) ">+</button>
+          <button class="btn btn-outline-dark btn-block" @click=" increaseQuantity(product)">+</button>
         </div>
-        <button class="btn btn-outline-dark btn-block m-1 m-1" @click=" addToCart(product) ">Agregar al carrito</button>
+        <button class="btn btn-outline-dark btn-block m-1 m-1" @click=" addToCart(product)">Agregar al carrito</button>
       </div>
     </div>
 
     <!-- Agregado: Modal de detalle de producto -->
-    <div v-if=" selectedProduct " class="product-modal">
+    <div v-if="selectedProduct" class="product-modal">
       <div class="product-details">
         <h2>{{ selectedProduct.name }}</h2>
         <p>Precio: {{ selectedProduct.price }}</p>
         <p>Descripción: {{ selectedProduct.description }}</p>
-        <p>Cantidad :{{product.cantidad}}</p>
+        <p>Cantidad :{{ product.cantidad }}</p>
 
       </div>
     </div>
@@ -61,7 +61,6 @@
   
 <script setup>
 import { products } from "@/products.js";
-import Cart from "./Cart.vue";
 import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
 import { ref, nextTick } from "vue"
@@ -74,12 +73,15 @@ const selectedProduct = ref(null);
 const showSearch = ref(false);
 const searchInput = ref(null)
 
+//Filtra por nombre
 function applyFilterProducts() {
   const query = searchQuery.value.toLowerCase();
   displayedProducts.value = products.filter((product) =>
     product.name.toLowerCase().includes(query)
   );
 }
+
+//Ordena los productos por nombre o precio
 function sortProducts() {
   if (sortBy.value === "price") {
     displayedProducts.value.sort((a, b) => a.price - b.price);
@@ -88,23 +90,25 @@ function sortProducts() {
   }
 }
 
- function toggleSearch() {
-    showSearch.value = !showSearch.value;
-    if (showSearch.value) {
-      nextTick(() => {
-        searchInput.value.focus();
-      });
-    } else {
-      searchQuery.value = "";
-      applyFilterProducts();
-    }
+//Muestra la barra de busqueda
+function toggleSearch() {
+  showSearch.value = !showSearch.value;
+  if (showSearch.value) {
+    nextTick(() => {
+      searchInput.value.focus();
+    });
+  } else {
+    searchQuery.value = "";
+    applyFilterProducts();
   }
+}
 
-
+//Agrega productos al carrito
 function addToCart(product) {
   const cartStore = useCartStore();
   cartStore.addToCart(product);
 }
+
 
 function decreaseQuantity(product) {
   product.cantidad = Math.max(1, (product.cantidad || 0) - 1);
@@ -192,7 +196,8 @@ function calcularPrecioDescuento(producto) {
 
 .price-container {
   display: flex;
-  justify-content: center; /* Centrar los precios */
+  justify-content: center;
+  /* Centrar los precios */
   margin-bottom: 10px;
 }
 
@@ -205,5 +210,4 @@ function calcularPrecioDescuento(producto) {
 .discounted-price {
   color: red;
 }
-
 </style>

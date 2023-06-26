@@ -7,6 +7,11 @@ import { useAuthStore } from "./store";
 import { ModalsContainer, useModal } from "vue-final-modal";
 import Modal from "./Modal.vue";
 import Login from "./components/Login.vue";
+
+const router = useRouter();
+const mostrarBotonAdministrador = ref(false);
+const store = useAuthStore();
+
 const { open, close } = useModal({
   component: Modal,
   attrs: {
@@ -19,8 +24,6 @@ const { open, close } = useModal({
     default: Login,
   },
 });
-
-const router = useRouter();
 
 const home = () => {
   router.push("/");
@@ -46,10 +49,7 @@ const administrador = () => {
   router.push("/Administrador");
 };
 
-const mostrarBotonAdministrador = ref(false);
-
-const store = useAuthStore();
-
+//Muestra el boton de administrador
 watch(
   () => store.esAdministrador,
   (newValue) => {
@@ -61,53 +61,27 @@ watch(
 
 
 <template>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" @click="home">
-        <img
-          src="./components/FLAB_Icon.jpg"
-          alt="Logo"
-          width="40"
-          height="20"
-        />
+        <img src="./components/FLAB_Icon.jpg" alt="Logo" width="40" height="20" />
       </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel"
-      >
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#" @click="home"
-                >Home</a
-              >
+              <a class="nav-link" aria-current="page" href="#" @click="home">Home</a>
             </li>
 
             <li class="nav-item">
@@ -119,22 +93,14 @@ watch(
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" @click="carrito" href="#"
-                >Carrito de compras</a
-              >
+              <a class="nav-link" @click="carrito" href="#">Carrito de compras</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="open" href="#">Acceder</a>
               <ModalsContainer />
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                v-if="mostrarBotonAdministrador"
-                @click="administrador"
-                href="#"
-                >Administrador</a
-              >
+              <a class="nav-link" v-if="mostrarBotonAdministrador" @click="administrador" href="#">Administrador</a>
             </li>
           </ul>
         </div>
@@ -160,25 +126,13 @@ watch(
         <h3>Social</h3>
         <p>Seguinos en:</p>
         <div class="social-media-icons">
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-twitter"></i>
           </a>
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-facebook"></i>
           </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-instagram"></i>
           </a>
         </div>

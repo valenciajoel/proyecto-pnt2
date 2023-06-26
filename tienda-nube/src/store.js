@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
   
   function iniciarSesion(datosRecibidos) {
     
-    //Busca lal usuario en el array de usuario con los datos recibidos en el login
+    //Busca al usuario en el array de usuario con los datos recibidos en el login
     const usuarioValido = usuarios.value.find(user => user.email === datosRecibidos.value.email && user.password === datosRecibidos.value.password);
     console.log(usuarioValido)
 
@@ -32,10 +32,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   function cerrarSesion() {
     usuario.value = null;
-  }
-
-  function getUsuario(){
-    return usuario.value
   }
 
   //Propiedad que devulve un booleano de si esta o no logueado.
