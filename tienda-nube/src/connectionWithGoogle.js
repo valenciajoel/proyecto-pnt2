@@ -1,6 +1,6 @@
 // Objeto GoogleSheets para interactuar con la hoja de cálculo de Google
 export const GoogleSheets = {
-    urlGoogle: "https://script.google.com/macros/s/AKfycbzfyk5aDqnHURLnDt3-ryCigEHJcQFOOYdRbmcmmIFHEehaRFqEbAssrme7pWFoIEJZrA/exec",
+    urlGoogle: "https://script.google.com/macros/s/AKfycbwdUhSzK6NNs5bIcxXZCNpScXpUzqF5CeHSdQRNYMhLqtVMPFa3btlH-R6NIXD5yEqMwg/exec",
     // Método para enviar una compra a la hoja de cálculo
     enviarCompra: async (data) => {
         // Construir la URL de la API para crear una compra
