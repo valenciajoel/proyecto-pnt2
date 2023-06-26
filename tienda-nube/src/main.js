@@ -26,6 +26,7 @@ const router = createRouter({
     routes,
     history:createWebHistory()
 })
+
 const vfm = createVfm()
 
 const app = createApp(App)

@@ -90,13 +90,12 @@ async function openResume () {
 }
 
 
-
-
-
+//Remueve del carrito
 function removeFromCart(item) {
   cartStore.removeFromCart(item);
 }
 
+//Obtiene el total 
 function getTotalBudget() {
   let total = 0;
   for (const item of cartStore.cart) {
@@ -109,6 +108,7 @@ function getTotalBudget() {
   return total;
 }
 
+
 function getProducts() {
   let products = [];
   for (const item of cartStore.cart) {
@@ -118,11 +118,13 @@ function getProducts() {
   return products;
 }
 
+
 function getUser() {
   const proxyObject = userStore.usuario;
   const jsonObject = JSON.parse(JSON.stringify(proxyObject));
   return jsonObject;
 }
+
 
 function checkout() {
   if (!userStore.hayUsuarioLogueado) {
@@ -133,6 +135,8 @@ function checkout() {
     finish()
   }
 }
+
+
 function getCompra(){
   const compra = {
     usuario: getUser().idUsuario
@@ -141,6 +145,8 @@ function getCompra(){
   }
   return compra;
 }
+
+
 function finish() {
   GoogleSheets.enviarCompra(getCompra())
   openResume()

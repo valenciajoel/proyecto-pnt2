@@ -128,11 +128,12 @@ const datosInicio = ref({
   password: ''
 })
 
+
 function iniciarSesion() {
   store.iniciarSesion(datosInicio);
 }
 
-
+//Trae el array de usuarios y administrador
 onMounted(async () => {
   const respuesta = await axios.get(
     "https://www.mockachino.com/bdda739c-cb46-4b/api-usuariosstore"
@@ -141,7 +142,7 @@ onMounted(async () => {
   store.setUsuarios(usuariosObtenidos);
 });
 
-// Usar mocachino reemplazando todo el regisro con un array de usarios que venga del moka
+
 
 const registrarUsuario = () => {
 
