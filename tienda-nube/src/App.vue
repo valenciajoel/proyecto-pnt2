@@ -1,4 +1,5 @@
 <script setup>
+// Importando los módulos y componentes necesarios
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useRouter } from "vue-router";
 import { watch } from "vue";
@@ -7,10 +8,11 @@ import { useAuthStore } from "./store";
 import { ModalsContainer, useModal } from "vue-final-modal";
 import Modal from "./Modal.vue";
 import Login from "./components/Login.vue";
-
+// Inicializando el enrutador, la bandera y la tienda
 const router = useRouter();
 const mostrarBotonAdministrador = ref(false);
 const store = useAuthStore();
+// Configuración del modal
 
 const { open, close } = useModal({
   component: Modal,
@@ -24,32 +26,37 @@ const { open, close } = useModal({
     default: Login,
   },
 });
-
+// Función para redirigir a la página de inicio (Home)
 const home = () => {
   router.push("/");
 };
+// Función para redirigir al catálogo de productos
 
 const catalogo = () => {
   router.push("/Productos");
 };
+// Función para redirigir a la página de contacto
 
 const contacto = () => {
   router.push("/Contacto");
 };
+// Función para redirigir al carrito de compras
 
 const carrito = () => {
   router.push("/Carrito");
 };
+// Función para redirigir a la página de inicio de sesión
 
 const login = () => {
   router.push("/Login");
 };
+// Función para redirigir a la página de administrador
 
 const administrador = () => {
   router.push("/Administrador");
 };
 
-//Muestra el boton de administrador
+// Muestra el botón de administrador en función del estado del usuario
 watch(
   () => store.esAdministrador,
   (newValue) => {

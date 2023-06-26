@@ -95,7 +95,7 @@ import { ref, onMounted } from 'vue';
 import Cartel from './Cartel.vue';
 import { useAuthStore } from '../store';
 import axios from 'axios';
-
+// Declaración de variables reactivas
 const mostrarCartelRegistro = ref(false);
 const mostrarMensajeRegistroExitoso = ref();
 const store = useAuthStore();
@@ -128,7 +128,7 @@ const datosInicio = ref({
   password: ''
 })
 
-
+// Función para iniciar sesión
 function iniciarSesion() {
   store.iniciarSesion(datosInicio);
 }
@@ -143,7 +143,7 @@ onMounted(async () => {
 });
 
 
-
+// Función para registrar un usuario
 const registrarUsuario = () => {
 
   mostrarCartelRegistro.value = false;

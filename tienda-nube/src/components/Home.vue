@@ -2,6 +2,7 @@
 <template>
     <div class="container">
         <div class="row">
+                        <!-- Carrusel de productos -->
             <div id="carouselProducts" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselProducts" data-bs-slide-to="0" class="active"
@@ -16,6 +17,8 @@
                         aria-label="Slide 5"></button>
                 </div>
                 <div class="carousel-inner">
+                                        <!-- Elementos del carrusel -->
+
                     <div class="carousel-item active">
                         <img src="../img/1.jpg" class="d-block w-100" style="width: 300px; height: 600px;">
                         <div class="carousel-caption d-none d-md-block">

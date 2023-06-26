@@ -65,6 +65,7 @@ import { shuffle } from "lodash";
 import { useCartStore } from "@/store/carrito.js";
 import { ref, nextTick } from "vue"
 
+// Variables reactivas
 const displayedProducts = ref([]);
 displayedProducts.value = shuffle(products);
 const searchQuery = ref("");
@@ -109,15 +110,15 @@ function addToCart(product) {
   cartStore.addToCart(product);
 }
 
-
+// Disminuye la cantidad de un producto
 function decreaseQuantity(product) {
   product.cantidad = Math.max(1, (product.cantidad || 0) - 1);
 }
-
+// Aumenta la cantidad de un producto
 function increaseQuantity(product) {
   product.cantidad = Math.min(8, (product.cantidad || 0) + 1);
 }
-
+// Calcula el precio con descuento de un producto
 function calcularPrecioDescuento(producto) {
   return producto.price - (producto.price * producto.discount) / 100;
 }

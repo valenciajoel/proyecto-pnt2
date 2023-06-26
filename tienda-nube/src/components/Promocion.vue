@@ -2,6 +2,7 @@
   <div>
     <h1>Promociones</h1>
     <div class="image-container">
+            <!-- Renderiza cada producto con descuento -->
       <div v-for="producto in productosConDescuento" :key="producto.id" class="product-column">
         <img :src="producto.image" :alt="producto.name" class="product-image" />
         <p class="product-name">{{ producto.name }}</p>

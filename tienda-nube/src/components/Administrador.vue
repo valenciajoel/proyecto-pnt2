@@ -50,170 +50,207 @@ import {
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale
-} from 'chart.js'
-import { Bar } from 'vue-chartjs'
-import { products } from '../products'
+  LinearScale,
+} from "chart.js";
+import { Bar } from "vue-chartjs";
+import { products } from "../products";
 import { onMounted, ref } from "vue";
-import { GoogleSheets } from '../connectionWithGoogle';
+import { GoogleSheets } from "../connectionWithGoogle";
+// Registra los elementos y escalas necesarios para el gráfico de barras
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-const year = {date:{year:2023}}
-const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
-const date = { date: { month: 5, year: 2023 } }
-const dataMenosVendidos = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
-const dataMesMenosVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
-const dataMesMasVentas = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] })
+const year = { date: { year: 2023 } };
+const data = ref({ labels: ["", "", ""], datasets: [{ data: [0, 0, 0] }] });
+const date = { date: { month: 5, year: 2023 } };
+const dataMenosVendidos = ref({
+  labels: ["", "", ""],
+  datasets: [{ data: [0, 0, 0] }],
+});
+const dataMesMenosVentas = ref({
+  labels: ["", "", ""],
+  datasets: [{ data: [0, 0, 0] }],
+});
+const dataMesMasVentas = ref({
+  labels: ["", "", ""],
+  datasets: [{ data: [0, 0, 0] }],
+});
 
 // Grafico de Barras mes con mas y menos ventas
-onMounted(async () =>{
-
+onMounted(async () => {
   //Obtiene los datos de GoogleSheets
   let topMeses = await GoogleSheets.obtenerTopMeses(year);
-  const mesesMasVentas = topMeses.response.map(item => item.mes);
-  const cantidadesMesMasVentas = topMeses.response.map(item => item.total);
-  
+  const mesesMasVentas = topMeses.response.map((item) => item.mes);
+  const cantidadesMesMasVentas = topMeses.response.map((item) => item.total);
 
+  // Actualiza los datos del gráfico del mes con más ventas
   dataMesMasVentas.value = {
     labels: mesesMasVentas,
-    datasets: [{
-      data: cantidadesMesMasVentas,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
-      borderWidth: 1,barThickness: 25,
-    }]
+    datasets: [
+      {
+        data: cantidadesMesMasVentas,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+        barThickness: 25,
+      },
+    ],
   };
-
+  // Ordena los meses por cantidad de ventas de menor a mayor
   const mesMenosVentas = topMeses.response.sort((a, b) => a.total - b.total);
-  const labelMesMenosVentas = mesMenosVentas.map(item =>{
-    return item.mes
-  })
-  const cantidadesMesMenosVentas = mesMenosVentas.map(item =>{return item.total})
-
+  const labelMesMenosVentas = mesMenosVentas.map((item) => {
+    return item.mes;
+  });
+  const cantidadesMesMenosVentas = mesMenosVentas.map((item) => {
+    return item.total;
+  });
+  // Actualiza los datos del gráfico del mes con menos ventas
   dataMesMenosVentas.value = {
     labels: labelMesMenosVentas,
-    datasets: [{
-      data: cantidadesMesMenosVentas,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
-      borderWidth: 1, barThickness: 25,
-    }]
+    datasets: [
+      {
+        data: cantidadesMesMenosVentas,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+        barThickness: 25,
+      },
+    ],
   };
-
-})
-
+});
 
 // Grafico de Barras productos mas y menos vendidos
 onMounted(async () => {
-
- //Obtiene los datos de GoogleSheets
+  //Obtiene los datos de GoogleSheets
   let topArticulos = await GoogleSheets.obtenerTopArticulos(date);
   const articulos = topArticulos.response.map((item) => {
     const producto = products.find((producto) => producto.id === item.art);
     return producto ? producto.name : null;
   });
-  const cantidades = topArticulos.response.map(item => item.cant);
+  const cantidades = topArticulos.response.map((item) => item.cant);
 
   data.value = {
-    labels: articulos, datasets: [{
-      data: cantidades, backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 25,pointRadius: 3,
-    }], options: {
+    labels: articulos,
+    datasets: [
+      {
+        data: cantidades,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+        barThickness: 25,
+        pointRadius: 3,
+      },
+    ],
+    options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
-      }
+          beginAtZero: true,
+        },
+      },
     },
-  }
-
-  const topArticulosMenosVendidos = topArticulos.response.sort((a, b) => a.cant - b.cant)
-  const articulosMenosVendidos = topArticulosMenosVendidos.map(item => {
-    const producto = products.find(producto => producto.id === item.art)
-    return producto ? producto.name : null
-  })
-  const cantidadesMenosVendidos = topArticulosMenosVendidos.map(item => item.cant)
-
+  };
+  // Obtiene los datos de Google Sheets para los productos menos vendidos
+  const topArticulosMenosVendidos = topArticulos.response.sort(
+    (a, b) => a.cant - b.cant
+  );
+  const articulosMenosVendidos = topArticulosMenosVendidos.map((item) => {
+    const producto = products.find((producto) => producto.id === item.art);
+    return producto ? producto.name : null;
+  });
+  const cantidadesMenosVendidos = topArticulosMenosVendidos.map(
+    (item) => item.cant
+  );
 
   dataMenosVendidos.value = {
-    labels: articulosMenosVendidos, datasets: [{
-      data: cantidadesMenosVendidos,  backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ], borderWidth: 1, barThickness: 25,
-    }], options: {
+    labels: articulosMenosVendidos,
+    datasets: [
+      {
+        data: cantidadesMenosVendidos,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+        barThickness: 25,
+      },
+    ],
+    options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
-      }
+          beginAtZero: true,
+        },
+      },
     },
-  }
-})
-  
+  };
+});
 </script>
 
 <style scoped>

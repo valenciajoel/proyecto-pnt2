@@ -108,6 +108,7 @@ function getTotalBudget() {
   return total;
 }
 
+// Obtiene los productos del carrito
 
 function getProducts() {
   let products = [];
@@ -115,20 +116,25 @@ function getProducts() {
     let product = { id: item.id, cantidad: item.cantidad, name: item.name, price: item.price };
     products.push(product);
   }
+    // Devuelve el array de productos
+
   return products;
 }
 
-
+// Obtiene los datos del usuario logueado
 function getUser() {
   const proxyObject = userStore.usuario;
   const jsonObject = JSON.parse(JSON.stringify(proxyObject));
   return jsonObject;
 }
 
-
+// Realiza el proceso de checkout
 function checkout() {
+    // Verifica si hay un usuario logueado
   if (!userStore.hayUsuarioLogueado) {
     openModal("Por favor inicie sesion", Login)
+        // Verifica si el total del presupuesto es cero
+
   }else if(getTotalBudget() == 0){
     openModal("Error", "<p>Por favor ingrese articulos para poder continuar</p>")
   }else {
@@ -136,7 +142,7 @@ function checkout() {
   }
 }
 
-
+// Crea un objeto compra con los datos necesarios
 function getCompra(){
   const compra = {
     usuario: getUser().idUsuario
@@ -146,7 +152,7 @@ function getCompra(){
   return compra;
 }
 
-
+// Finaliza el proceso de compra
 function finish() {
   GoogleSheets.enviarCompra(getCompra())
   openResume()

@@ -36,7 +36,7 @@ const datosRecibidos = ref({
   telefono: '',
   comentarios: ''
 });
-
+// Función para guardar el mensaje recibido
 function guardarMensaje() {
   mensajesRecibidos.value.push(datosRecibidos.value);
 }
